@@ -9,7 +9,7 @@
 		echo "empty";
 		die();
 	}
-  echo  $sql = "SELECT * FROM dhf_user WHERE dhf_user='$user' AND dhf_pass='$pass'";
+   $sql = "SELECT * FROM dhf_user WHERE dhf_user='$user' AND dhf_pass='$pass'";
     //echo $sql;
     $db_r4->exec("set names utf8");
     $rs = $db_r4->prepare($sql);
@@ -24,19 +24,16 @@
     } else {
         
         if($rs->rowCount() == 1) {
-            $results=$rs->fetchAll;
+           
 
-foreach ($results as $row) {
-    echo $row["dhf_first_name"];
-}
 
             if($results[0]["status"] == "N"){
                 //บล๊อกสถานะ
                 echo "suspen";
 		        die();
             }
-          echo"name".$results[0][0];
-            $_SESSION['valid_dhf_first'] = $results[0]["dhf_first_name"];
+     
+          $_SESSION['valid_dhf_first'] = $results[0]["dhf_first_name"];
             $_SESSION['valid_dhf_last'] = $results[0]["dhf_last_name"];
             $_SESSION['valid_dhf_id'] = $results[0]["dhf_id"];
            $_SESSION['valid_dhf_user'] = $results[0]["dhf_user"];
@@ -75,10 +72,10 @@ foreach ($results as $row) {
                 die();
             }
             //สำเร็จ
-            // echo "yes";
+            echo "yes";
         } else {
             //ค้นหาไม่สำเร็จ
-            // echo "fail";
+            echo "fail";
         }
 	}
 ?>

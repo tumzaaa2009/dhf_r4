@@ -187,7 +187,7 @@ function sendlogin(){
                 //window.alert(response);
                 if(response=='yes'){
 					toastr.success('รหัสผ่านถูก้อง');
-                    // window.location.assign("index.php");
+                    window.location.assign("index.php");
                 } else if(response=='empty') {
                     toastr.info('กรุณา! กรอก Username และ Password');
                 } else if(response=='fail') {
