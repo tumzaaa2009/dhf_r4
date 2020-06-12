@@ -1,4 +1,8 @@
+<?php
+session_start();
+include("include/connect.php");
 
+?>
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -75,7 +79,7 @@
 
             </ul>
           </nav><!-- .nav-menu -->
-<
+<?= $_SESSION['valid_dhf_user']; ?>
           <a href="../dhf_r4/login.php" class="get-started-btn scrollto">User Login</a>
         </div>
       </div>

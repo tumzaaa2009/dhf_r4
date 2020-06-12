@@ -1,3 +1,9 @@
+<?php
+session_start();
+include("include/connect.php");
+date_default_timezone_set("Asia/Bangkok");
+header('Content-Type: text/html; charset=utf-8');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -181,7 +187,7 @@ function sendlogin(){
                 //window.alert(response);
                 if(response=='yes'){
 					toastr.success('รหัสผ่านถูก้อง');
-                    window.location.assign("index.php");
+                    // window.location.assign("index.php");
                 } else if(response=='empty') {
                     toastr.info('กรุณา! กรอก Username และ Password');
                 } else if(response=='fail') {

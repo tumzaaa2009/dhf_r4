@@ -1,8 +1,7 @@
 <?php
     session_start();
     include("include/connect.php");
-    date_default_timezone_set("Asia/Bangkok");
-    header('Content-Type: text/html; charset=utf-8');
+
     $user = $_REQUEST["user"];
 	 $pass = $_REQUEST["pass"];
 	if($user=='' || $pass==''){
@@ -10,27 +9,37 @@
 		echo "empty";
 		die();
 	}
-    $sql = "SELECT * FROM covid_user WHERE covid_user='$user' AND covid_pass='$pass'";
+  echo  $sql = "SELECT * FROM dhf_user WHERE dhf_user='$user' AND dhf_pass='$pass'";
     //echo $sql;
     $db_r4->exec("set names utf8");
     $rs = $db_r4->prepare($sql);
     $rs->execute();
-    //echo $rs->rowCount();
+    $results = $rs->fetchAll();
+    
+    
+
     if(!$rs) {
         //connect ไม่ผ่าน
         echo "error";
     } else {
+        
         if($rs->rowCount() == 1) {
-            $results=$rs->fetchAll(PDO::FETCH_ASSOC);
+            $results=$rs->fetchAll;
+
+foreach ($results as $row) {
+    echo $row["dhf_first_name"];
+}
+
             if($results[0]["status"] == "N"){
                 //บล๊อกสถานะ
                 echo "suspen";
 		        die();
             }
-            $_SESSION['valid_covid_first'] = $results[0]["covid_first"];
-            $_SESSION['valid_covid_last'] = $results[0]["covid_last"];
-            $_SESSION['valid_covid_id'] = $results[0]["covid_id"];
-            $_SESSION['valid_covid_user'] = $results[0]["covid_user"];
+          echo"name".$results[0][0];
+            $_SESSION['valid_dhf_first'] = $results[0]["dhf_first_name"];
+            $_SESSION['valid_dhf_last'] = $results[0]["dhf_last_name"];
+            $_SESSION['valid_dhf_id'] = $results[0]["dhf_id"];
+           $_SESSION['valid_dhf_user'] = $results[0]["dhf_user"];
             $_SESSION['valid_user_type'] = $results[0]["user_type"];
 
             if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -41,12 +50,12 @@
                 $ip = $_SERVER['REMOTE_ADDR'];
             }
 
-            $sql_update_log = "INSERT INTO covid_login (covid_user,login_date, ip)
-            VALUES ('".$_SESSION['valid_covid_user']."','".date("Y-m-d H:i:s")."','".$ip."')";
+            $sql_update_log = "INSERT INTO dhf_login (dhf_user,login_date, ip)
+            VALUES ('".$_SESSION['valid_dhf_user']."','".date("Y-m-d H:i:s")."','".$ip."')";
 
-            $sql_insert_log = "UPDATE covid_user
+            $sql_insert_log = "UPDATE dhf_user
             SET last_login = '".date("Y-m-d H:i:s")."'
-            WHERE covid_user = '".$_SESSION['valid_covid_user']."' AND covid_id = '".$_SESSION['valid_covid_id']."'";
+            WHERE dhf_user = '".$_SESSION['valid_dhf_user']."' AND dhf_id = '".$_SESSION['valid_dhf_id']."'";
 
             $rs_update_log = $db_r4->prepare($sql_update_log);
             $rs_update_log->execute();
@@ -66,10 +75,10 @@
                 die();
             }
             //สำเร็จ
-            echo "yes";
+            // echo "yes";
         } else {
             //ค้นหาไม่สำเร็จ
-            echo "fail";
+            // echo "fail";
         }
 	}
 ?>
