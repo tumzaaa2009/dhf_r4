@@ -1,9 +1,11 @@
-้<?php include "include/headder.php"; ?>
+<?php
+include 'include/headder.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
 <body>
 
- 
 
- 
 
   <main id="main">
 

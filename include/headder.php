@@ -1,7 +1,7 @@
 <?php
 session_start();
-include("include/connect.php");
-include ('include/func.php');
+include("connect.php");
+include('func.php');
 
 ?>
 <!DOCTYPE html>
@@ -100,7 +100,7 @@ include ('include/func.php');
   </header><!-- End Header -->
 
  <!-- ======= Hero Section ======= -->
- <section id="hero" class="d-flex align-items-center"  style="height:1000px;">
+ <section id="hero" class="d-flex align-items-center"  style="height:700px;">
 <div class="container-fluid" data-aos="fade-up">
   <div class="row justify-content-center">
     <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
@@ -118,6 +118,20 @@ include ('include/func.php');
 </section><!-- End Hero -->
 
   
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="assets/vendor/counterup/counterup.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
 
   
     </body>

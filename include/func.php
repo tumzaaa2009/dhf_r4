@@ -1,6 +1,8 @@
 <?php 
-include("connect.php");
-
+function stringInsert($str,$insertstr,$pos){
+    $str = substr($str, 0, $pos) . $insertstr . substr($str, $pos);
+    return $str;
+}  
 //random string
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -69,67 +71,14 @@ return $ip;
 }//end
 
 //change 2005-10-11 to 11 ตุลาคม 2548
-function dateThai($date){
-$_month_name=array("01"=>"มกราคม","02"=>"กุมภาพันธ์","03"=>"มีนาคม","04"=>"เมษายน","05"=>"พฤษภาคม","06"=>"มิถุนายน","07"=>"กรกฎาคม","08"=>"สิงหาคม","09"=>"กันยายน","10"=>"ตุลาคม","11"=>"พฤศจิกายน","12"=>"ธันวาคม");
-$yy=substr($date,0,4); $mm=substr($date,5,2); $dd=substr($date,8,2); $time=substr($date,11,8);
-$yy+=543;
-if (intval($dd)==0){$dd="";}else{$dd=intval($dd);}
-$dateT=$dd." ".$_month_name[$mm]." ".$yy." ".$time;
-return $dateT;
+	function dateThai($date){
+	$_month_name=array("01"=>"มกราคม","02"=>"กุมภาพันธ์","03"=>"มีนาคม","04"=>"เมษายน","05"=>"พฤษภาคม","06"=>"มิถุนายน","07"=>"กรกฎาคม","08"=>"สิงหาคม","09"=>"กันยายน","10"=>"ตุลาคม","11"=>"พฤศจิกายน","12"=>"ธันวาคม");
+	$yy=substr($date,0,4); $mm=substr($date,5,2); $dd=substr($date,8,2); $time=substr($date,11,8);
+	$yy+=543;
+	if (intval($dd)==0){$dd="";}else{$dd=intval($dd);}
+	$dateT=$dd." ".$_month_name[$mm]." ".$yy." ".$time;
+	return $dateT;
 }//end
-
-
-//change 1-> มกราคม
-function change_month_isThai($no_month){
-$month_name=array("01"=>"มกราคม","02"=>"กุมภาพันธ์","03"=>"มีนาคม","04"=>"เมษายน","05"=>"พฤษภาคม","06"=>"มิถุนายน","07"=>"กรกฎาคม","08"=>"สิงหาคม","09"=>"กันยายน","10"=>"ตุลาคม","11"=>"พฤศจิกายน","12"=>"ธันวาคม");
-return $month_name[$no_month];
-}//end
-
-function seen_lab($user,$flab_order){ //checkuser
-include("phpconf.php");
-				  	$sql="select count(*) as cc from lab_restict_log  where staff='$user' and lab_order_number='$flab_order'";
-					$result=mysql_db_query($DBName,$sql)
-					or die("ไม่สามารถเลือกข้อมูลมาแสดงได้".mysql_error());
-	   				$rs=mysql_fetch_array($result);
-					return $rs["cc"];				
-				  }//end
-
-function access_right($ulogin){
-include("phpconf.php");
-				  	$sqlAccess="select  * from opduser  where loginname='$ulogin' ";
-					$resultAccess=mysql_db_query($DBName,$sqlAccess)
-					or die("ไม่สามารถเลือกข้อมูลมาแสดงได้".mysql_error());
-	   				$rsAccess=mysql_fetch_array($resultAccess);
-					return $rsAccess["accessright"];
-}//end
-
-function check_right($uright,$aright){
-if(count($aright)>1){
-$cright=1;$oright=0;
-while ($val = each($aright)){
-if(!isset($cright) & !isset($oright)){$cright=$cright*strpos($uright,$val["value"]);$oright=$oright + strpos($uright,$val["value"]);}else{
-$cright=$cright*strpos($uright,$val["value"]);
-$oright=$oright + strpos($uright,$val["value"]);}
-}
-if($cright<>0){return 2;}elseif($oright<>0){return 1;}else{return 0;}
- }else
-{//$cright=strpos($uright,$aright);//echo count($aright);echo $aright[0];
-
-//if($cright<>0){
-//return 2;}else{return 0;}
-if(eregi($aright[0],$uright)){return 1;}else{return 0;} 
-
- }//$cright
-}//end
-#0=none 1=some 2=all 
-
-//Check Eng-Number
-function CheckThai($txt)
-	{
-	if ( !eregi("^[_a-z0-9-]",$txt))
-	return true;
-	}
-//End
 
 
 function show_list($rstext){
@@ -233,14 +182,7 @@ function monthlist()
 		return $text;
 	}
 
-function getsqldatadw($fsql)
-{
-conDBdw();
-$fresult = mysql_query($fsql)or die(mysql_error());
-$frs=mysql_fetch_array($fresult);
-return $frs[0];
- CloseDBdw(); 
-}
+
 function DateThaiShortNotime($strDate){
 	if($strDate !='' && substr($strDate,0,10) !='0000-00-00'){
 		$strYear = date("Y",strtotime($strDate))+543;
@@ -305,26 +247,26 @@ function get_Diagnose($codeDiagnose){
 	return $diagnose;
 }
 function get_Nation($codeNation){
-	global $db_r4;
-	$result = $db_r4->prepare("SELECT nationname_thai FROM cnation_aec WHERE nationgroup_aec='$codeNation'");
+	global $db_saraburi;
+	$result = $db_saraburi->prepare("SELECT nationname_thai FROM cnation_aec WHERE nationgroup_aec='$codeNation'");
 	$result->execute();
 	$rs_name = $result->fetchAll(PDO::FETCH_ASSOC);
 	$rs_name_return = $rs_name[0]["nationname_thai"];
 	return $rs_name_return;
 }
 function get_Address($codeAddress){
-	global $db_r4;
-	$result_ampur = $db_r4->prepare("SELECT ampurname FROM campur WHERE changwatcode = '19' AND ampurcodefull = LEFT('$codeAddress',4)");
+	global $db_saraburi;
+	$result_ampur = $db_saraburi->prepare("SELECT ampurname FROM campur WHERE changwatcode = '19' AND ampurcodefull = LEFT('$codeAddress',4)");
 	$result_ampur->execute();
 	$rs_ampur = $result_ampur->fetchAll(PDO::FETCH_ASSOC);
 	$rs_ampur_name = $rs_ampur[0]["ampurname"];
 
-	$result_tambon = $db_r4->prepare("SELECT tambonname FROM ctambon WHERE changwatcode = '19' AND tamboncodefull = LEFT('$codeAddress',6)");
+	$result_tambon = $db_saraburi->prepare("SELECT tambonname FROM ctambon WHERE changwatcode = '19' AND tamboncodefull = LEFT('$codeAddress',6)");
 	$result_tambon->execute();
 	$rs_tambon = $result_tambon->fetchAll(PDO::FETCH_ASSOC);
 	$rs_tambon_name = $rs_tambon[0]["tambonname"];
 
-	$result_village = $db_r4->prepare("SELECT villagename FROM cvillage WHERE changwatcode = '19' AND villagecodefull = '$codeAddress'");
+	$result_village = $db_saraburi->prepare("SELECT villagename FROM cvillage WHERE changwatcode = '19' AND villagecodefull = '$codeAddress'");
 	$result_village->execute();
 	$rs_village = $result_village->fetchAll(PDO::FETCH_ASSOC);
 	$rs_village_name = $rs_village[0]["villagename"];
@@ -371,4 +313,20 @@ function thai_date_short_number($time){   // 19-12-56
     $thai_date_return.= "-".substr((date("Y",$time)+543),-2);   
     return $thai_date_return;   
 } 
+function get_sql_data($fsql){
+	include("connect.php");
+	$fresult = $db_saraburi->prepare($fsql);
+	$fresult->execute();
+	$frs = $fresult->fetchAll();
+	return $frs[0]['cc'];
+
+}
+/*-------------------------------------*/
+function GetSqlData($sql){
+	include("connect.php");
+	$rs = $db_saraburi->prepare($sql);
+	$rs->execute();
+	$row = $rs->fetchAll();
+	return $row[0]['result'];
+}
 ?>
