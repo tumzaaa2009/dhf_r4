@@ -88,12 +88,12 @@ include('func.php');
           <?=	$_SESSION['user'];?>
     <?php
 if(isset(	$_SESSION['user'])){?>
-          <a href="../dhf_r4/logout.php" class="get-started-btn scrollto">Logout</a>
+          <a href="../logout.php" class="get-started-btn scrollto">Logout</a>
         <?}else{?>
           <a href="../dhf_r4/login.php" class="get-started-btn scrollto">Login</a>
       <?  }  ?>
 
-  
+
         </div>
       </div>
 
