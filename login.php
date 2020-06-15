@@ -152,64 +152,67 @@ header('Content-Type: text/html; charset=utf-8');
 
 
 	
-<script>
-$(document).ready(function () {
-    toastr.options = {
-        "closeButton": false,
-        "debug": true,
-        "newestOnTop": false,
-        "progressBar": false,
-        "positionClass": "toast-bottom-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-	
+		<script>
+            $(document).ready(function () {
+                toastr.options = {
+                    timeOut: 3000,
+                    progressBar: true,
+                    showMethod: "slideDown",
+                    hideMethod: "slideUp",
+                    showDuration: 200,
+                    hideDuration: 200
+                };
+                $.fn.pressEnter = function(fn) {
+                    return this.each(function() {
+                        $(this).bind('enterPress', fn);
+                        $(this).keyup(function(e){
+                            if(e.keyCode == 13)
+                            {
+                            $(this).trigger("enterPress");
+                            }
+                        })
+                    });
+                };
+                $('#user').pressEnter(function(){ CheckLogin(); });
+                $('#pass').pressEnter(function(){ CheckLogin(); });
+            });
+            function sendlogin() {
+                var user = $("#user").val();
+                var pass = $("#pass").val();
 
-});
-function sendlogin(){
-	var user = $("#user").val();
-        var pass = $("#pass").val();
-
-        console.log(user);
-        $.ajax({
-            type: "POST",
-            url: "login_check.php",
-            data: {user:user, pass:pass},
-            success: function (response) {
-                //window.alert(response);
-                if(response=='yes'){
-					toastr.success('รหัสผ่านถูก้อง');
-                    window.location.assign("index.php");
-                } else if(response=='empty') {
+                if(user == "" || pass == ""){
                     toastr.info('กรุณา! กรอก Username และ Password');
-                } else if(response=='fail') {
-                    toastr.warning('Username หรือ Password ไม่ถูกต้อง');
-                } else if(response=='suspen'){
-                    toastr.error('ถูกระงับการใช้งาน! Admin : จังหวัดสระบุรี');
-                } else if(response=='error_update'){
-                    toastr.error('เกิดข้อผิดพลาด! error(01)');
-                } else if(response=='error_insert'){
-                    toastr.error('เกิดข้อผิดพลาด! error(02)');
-                }else {
-                    toastr.error('เกิดข้อผิดพลาด! กรุณาลองใหม่อีกครั้ง');
-                } 
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "login_check.php",
+                    data: {user:user, pass:pass},
+                    dataType: "json",
+                    success: function (response) {
+                        //window.alert(response);
+                        if(response.result =='yes'){
+                            if(response.level == "1"){
+                                
+								window.location.assign("backoffice/index_backoffice.php");	
+                            }else if(response.level == "2"){
+                                window.location.assign("site/index.php");
+                            }
+                        } else if(response.result == 'fail1') {
+                            toastr.warning('ไม่พบข้อมูลผู้ใช้งาน');
+                        } else if(response.result == 'fail2'){
+                            toastr.warning('Username หรือ Password ไม่ถูกต้อง');
+                        } else if(response.result == 'error_update'){
+                            toastr.error('เกิดข้อผิดพลาด! error(01)');
+                        } else if(response.result == 'error_insert'){
+                            toastr.error('เกิดข้อผิดพลาด! error(02)');
+                        }else {
+                            toastr.error('เกิดข้อผิดพลาด! กรุณาลองใหม่อีกครั้ง');
+                        } 
+                    }
+                });
             }
-        });
-        
-    }
-
-
-
-</script>
-
+        </script>
 
 </body>
 </html>
