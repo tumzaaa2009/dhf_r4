@@ -11,21 +11,27 @@
     $sql = "SELECT g.*
         FROM dhf_group_506 g
         ORDER BY g.group_id ASC";
-    $rs = $db_saraburi->prepare($sql);
+    $rs = $db_r4->prepare($sql);
     $rs->execute();
     //echo $rs1->rowCount();
     $results = $rs->fetchAll();
 ?>
-<div class="modal-header">
-    <h5 class="modal-title">กรุณาเลือก กลุ่มโรค</h5>
-</div>
+
+
+  <!-- Modal Header -->
+  <div class="modal-header " align="center">
+          <h4 class="modal-title" >กลุ่มโรค</h4>
+
+        </div>
 <div class="modal-body">
     <div class="row">
         <?php foreach ($results as $row) { ?>
             <div class="col-md-6 col-sm-12">
-                <button class="btn btn-primary btn-block" onclick="pick_disease('<?php echo $row['group_id']; ?>','<?php echo $row['group_name']; ?>','<?php echo $row['group_id_506']; ?>')">[<?php echo $row["group_id"]; ?>] <?php echo $row["group_name"]; ?></button>
+                <button class="btn btn-primary " onclick="pick_disease('<?php echo $row['group_id']; ?>','<?php echo $row['group_name']; ?>','<?php echo $row['group_id_506']; ?>')">[<?php echo $row["group_id"]; ?>] <?php echo $row["group_name"]; ?></button>
                 <div class="hr-line-dashed"></div>
             </div>
         <?php } ?>
     </div>
 </div>
+
+

@@ -5,25 +5,37 @@
     include("../../config/jwt.php");
     include("../../config/session_lvl_1.php");
 ?>
-<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-    <link rel="manifest" href="../favicon/site.webmanifest">
-    <link rel="mask-icon" href="../favicon/safari-pinned-tab.svg" color="#bc4677">
-    <meta name="msapplication-TileColor" content="#da77a0">
-    <meta name="theme-color" content="#bc4677">
-    <title>Epidemic Saraburi</title>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="../../assets/media/image/favicon.png"/>
-    <!-- Main css -->
-    <link rel="stylesheet" href="../../vendors/bundle.css" type="text/css">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Techie Bootstrap Template - Index</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../../assets/img/favicon.png" rel="icon">
+  <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="../../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../../assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="../../assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="../../assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../../assets/css/style.css" rel="stylesheet">
+
+<!-- DHF -->
+ <!-- Main css -->
+ <link rel="stylesheet" href="../../vendors/bundle.css" type="text/css">
     <!-- Slick -->
     <link rel="stylesheet" href="../../vendors/slick/slick.css" type="text/css">
     <link rel="stylesheet" href="../../vendors/slick/slick-theme.css" type="text/css">
@@ -32,8 +44,8 @@
     <!-- DataTable -->
     <link rel="stylesheet" href="../../vendors/dataTable/datatables.min.css" type="text/css">
     <!-- App css -->
-    <link rel="stylesheet" href="../../css/web-style.css" type="text/css">
-    <link rel="stylesheet" href="../../assets/css/app.min.css" type="text/css">
+    <!-- <link rel="stylesheet" href="../../css/web-style.css" type="text/css"> -->
+    <!-- <link rel="stylesheet" href="../../assets/css/app.min.css" type="text/css"> -->
     <link rel="stylesheet" href="../../vendors/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="../../vendors/fontawesome/css/all.min.css">
     <!-- leaflet -->
@@ -46,18 +58,17 @@
     <link rel="stylesheet" href="../../vendors/datepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="../../vendors/summernote/summernote-bs4.min.css">
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-<body  class="horizontal-navigation" >
-<!-- Preloader -->
-<div class="preloader">
-    <div class="preloader-icon"></div>
-</div>
-<!-- ./ Preloader -->
 
+
+  <!-- =======================================================
+  * Template Name: Techie - v2.0.0
+  * Template URL: https://bootstrapmade.com/techie-free-skin-bootstrap-3/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
 
 <!-- Layout wrapper -->
 <div class="layout-wrapper">
@@ -65,198 +76,87 @@
         $authorization = $_SESSION['JWT_Dengue_Fever'];
         $token = JWT::decode($authorization, 'Hdk21sTs47kjTad47DsMzz74Lof');
     ?>
-    <!-- Header -->
-    <div class="header d-print-none">
-        <div class="header-container">
-            <div class="header-left">
-                <div class="navigation-toggler">
-                    <a href="#" data-action="navigation-toggler">
-                        <i data-feather="menu"></i>
-                    </a>
-                </div>
-                <div class="header-logo">
-                    <a href=index.php>
-                        <h2 class="text-white">Epidemic Saraburi</h2>
-                    </a>
-                </div>
-            </div>
-            <div class="header-body">
-                <div class="header-body-left">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <div class="header-search-form">
-                              
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="header-body-right">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link" title="Fullscreen" data-toggle="fullscreen">
-                                <i class="maximize" data-feather="maximize"></i>
-                                <i class="minimize" data-feather="minimize"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a onclick="retweet_disease();" class="nav-link" title="Change" style="cursor: pointer;">
-                                <i data-feather="repeat"></i> เปลี่ยนกลุ่มโรค <span id="name_disease_1">(<?php echo $token->group_name; ?>)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" title="User menu" data-toggle="dropdown">
-                                <figure class="avatar avatar-sm">
-                                    <img src="../../assets/media/image/user/man_avatar3.jpg" class="rounded-circle"
-                                         alt="avatar">
-                                </figure>
-                                <span class="ml-2 d-sm-inline d-none"><?php echo $token->dhf_fullname; ?></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-big">
-                                <div class="text-center py-4" data-background-image="../../assets/media/image/image1.jpg">
-                                    <figure class="avatar avatar-lg mb-3 border-0">
-                                        <img src="../../assets/media/image/user/man_avatar3.jpg" class="rounded-circle" alt="image">
-                                    </figure>
-                                    <h5 class="mb-0"><?php echo $token->dhf_fullname; ?></h5>
-                                </div>
-                                <div class="list-group list-group-flush">
-                                    <a href="index_profile.php" class="list-group-item">โปรไฟล์</a>
-                                    <a href="logout.php" class="list-group-item text-danger">ออกจากระบบ</a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item header-toggler">
-                    <a href="#" class="nav-link">
-                        <i data-feather="arrow-down"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- ./ Header -->
-    <?php $now_page = basename($_SERVER['PHP_SELF']); ?>
-    <!-- Content wrapper -->
-    <div class="content-wrapper">
-        <!-- begin::navigation -->
-        <div class="navigation">
-            <div class="navigation-menu-body">
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container-fluid">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-9 d-flex align-items-center">
+          <h1 class="logo mr-auto"><a href="index.html">Techie</a></h1>
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <!-- <a href="index.html" class="logo mr-auto"><img src="../../assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#portfolio">Portfolio</a></li>
+              <li><a href="index_patient.php" <?php if($now_page == "index_patient.php"){ echo "class='active'"; } ?>>จัดการผู้ป่วย</a></li>
+              <li class="drop-down"><a href="">Drop Down</a>
                 <ul>
-                    <li>
-                        <a href="#">
-                            <span class="nav-link-icon">
-                                <i data-feather="home"></i>
-                            </span>
-                            <span>หน้าแรก</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="index.php" <?php if($now_page == "index.php"){ echo "class='active'"; } ?>>หน้าแรก</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="nav-link-icon">
-                                <i data-feather="bar-chart"></i>
-                            </span>
-                            <span>แผนภูมิ</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="view_chart_main.php" <?php if($now_page == "view_chart_main.php"){ echo "class='active'"; } ?>>แผนภูมิการเกิดโรค</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="nav-link-icon">
-                                <i data-feather="map"></i>
-                            </span>
-                            <span>แผนที่</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="view_map_main.php" <?php if($now_page == "view_map_main.php"){ echo "class='active'"; } ?>>แผนที่แสดงการเกิดโรคอัตราต่อแสนประชากร</a>
-                            </li>
-                            <li>
-                                <a href="view_map_point.php" <?php if($now_page == "view_map_point.php"){ echo "class='active'"; } ?>>แผนที่แสดงพิกัด</a>
-                            </li>
-                            <li>
-                                <a href="index_map_dhf.php" <?php if($now_page == "index_map_dhf.php"){ echo "class='active'"; } ?>>แผนที่แสดงการเกิดโรครายสัปดาห์</a>
-                            </li>
-                            <?php if($token->group_id == "1") { ?>
-                            <li>
-                                <a href="view_map_hici.php" <?php if($now_page == "view_map_hici.php"){ echo "class='active'"; } ?>>แผนที่ HI CI</a>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="nav-link-icon">
-                                <i data-feather="bar-chart-2"></i>
-                            </span>
-                            <span>ติดตาม</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="trace_map_point.php" <?php if($now_page == "trace_map_point.php"){ echo "class='active'"; } ?>>ติดตามการลงพิกัดแผนที่</a>
-                            </li>
-                            <?php if($token->group_id == "1") { ?>
-                            <li>
-                                <a href="trace_hici.php" <?php if($now_page == "trace_hici.php"){ echo "class='active'"; } ?>>ติดตามการลงข้อมูล HI CI</a>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                    </li>
-                    <?php if($token->dhf_admin == "1") { ?>
-                    <li>
-                        <a href="#">
-                            <span class="nav-link-icon">
-                                <i data-feather="user"></i>
-                            </span>
-                            <span>จัดการผู้ป่วย</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="index_patient.php" <?php if($now_page == "index_patient.php"){ echo "class='active'"; } ?>>จัดการผู้ป่วย</a>
-                            </li>
-                            <?php if($token->group_id == "1") { ?>
-                            <li>
-                                <a href="index_hi_ci.php" <?php if($now_page == "index_hi_ci.php"){ echo "class='active'"; } ?>>จัดการ HI CI</a>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                    </li>
-                    <?php } ?>
-                    <?php if($token->dhf_admin == "1") { ?>
-                    <li>
-                        <a href="#">
-                            <span class="nav-link-icon">
-                                <i data-feather="settings"></i>
-                            </span>
-                            <span>จัดการระบบ</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="index_user.php" <?php if($now_page == "index_user.php"){ echo "class='active'"; } ?>>จัดการผู้ใช้งาน</a>
-                            </li>
-                            <li>
-                                <a href="index_group.php" <?php if($now_page == "index_group.php"){ echo "class='active'"; } ?>>จัดการกลุ่มโรค</a>
-                            </li>
-                            <li>
-                                <a href="setting_calendar.php" <?php if($now_page == "setting_calendar.php"){ echo "class='active'"; } ?>>จัดการปฏิทินโรคระบาด</a>
-                            </li>
-                            <li>
-                                <a href="setting_population.php" <?php if($now_page == "setting_population.php"){ echo "class='active'"; } ?>>จัดการประชากร</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <?php } ?>
+                  <li><a href="#">Drop Down 1</a></li>
+                  <li class="drop-down"><a href="#">Deep Drop Down</a>
+                    <ul>
+                      <li><a href="#">Deep Drop Down 1</a></li>
+                      <li><a href="#">Deep Drop Down 2</a></li>
+                      <li><a href="#">Deep Drop Down 3</a></li>
+                      <li><a href="#">Deep Drop Down 4</a></li>
+                      <li><a href="#">Deep Drop Down 5</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">Drop Down 2</a></li>
+                  <li><a href="#">Drop Down 3</a></li>
+                  <li><a href="#">Drop Down 4</a></li>
                 </ul>
-            </div>
+              </li>
+    
+              <li class="drop-down"><a href=""><?php echo $token->dhf_fullname; ?></a>
+                <ul>
+                  <li><a href="logout.php"">ออกจากระบบ</a></li>
+                  <!-- <li><a href="#">Drop Down 2</a></li>
+                  <li><a href="#">Drop Down 3</a></li>
+                  <li><a href="#">Drop Down 4</a></li> -->
+                </ul>
+              </li>
+              <li >
+              <ul>
+               <a onclick="retweet_disease();" class="nav-link text-white btn btn btn-info" title="Change" style="cursor: pointer;">
+                                <i data-feather="repeat"></i> เปลี่ยนกลุ่มโรค <span id="name_disease_1">(<?php echo $token->group_name; ?>)</span>
+                  </a>
+              </ul>
+          </li>
+            </ul>
+          </nav><!-- .nav-menu -->
+              
+         
         </div>
-        <!-- end::navigation -->
+      </div>
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center" style="height:600px;">
+
+    <div class="container-fluid" data-aos="fade-up">
+      <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1>Bettter Digital Experience With Techie</h1>
+          <h2>We are team of talanted designers making websites with Bootstrap</h2>
+          <div><a href="#about" class="btn-get-started scrollto">Get Started</a></div>
+        </div>
+        <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
+          <img src="../../assets/img/hero-img.png" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+</body>
+
+</html>

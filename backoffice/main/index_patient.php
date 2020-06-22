@@ -1,8 +1,26 @@
-<?php include("header.php"); ?>
-            <!-- Content body -->
-            <div class="content-body">
-                <!-- Content -->
-                <div class="content">
+
+<?php 
+include('header.php')
+?>
+
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Techie Bootstrap Template - Index</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+ 
+</head>
+
+<body>
+<section class="main">
+<div class="container">    
+    <div class="content">
                     <div class="page-header">
                         <div>
                             <h3>จัดการผู้ป่วย</h3>
@@ -13,17 +31,20 @@
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         จัดการผู้ป่วย
+                                    </li> 
+                                    
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                    <?php echo ($token->group_name != "" ? $token->group_name : "กรุณาเลือกกลุ่มโรค"); ?>
+
                                     </li>
+
                                 </ol>
                             </nav>
                         </div>
-                        <div>
-                            <div class="btn bg-white">
-                                <span><i class="fas fa-viruses"></i> <?php echo ($token->group_name != "" ? $token->group_name : "กรุณาเลือกกลุ่มโรค"); ?></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
+                    <div>            
+      </div> 
+
+<div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
@@ -46,7 +67,7 @@
                                                 <select class="form-control" id="id_506" name="id_506" onchange="LoadPatient();">
                                                     <?php
                                                         $sql_code = "SELECT * FROM dhf_506 WHERE id_506 IN ($token->group_id_506)";
-                                                        $rs_code = $db_saraburi->prepare($sql_code);
+                                                        $rs_code = $db_r4->prepare($sql_code);
                                                         $rs_code->execute();
                                                         $results_code = $rs_code->fetchAll();
                                                     ?>
@@ -63,7 +84,7 @@
                                                 <select class="form-control" id="ampur" name="ampur" onchange="LoadPatient();">
                                                     <?php
                                                         $sql_amphur = "SELECT * FROM dhf_ampur WHERE PRO_CODE = '19'";
-                                                        $rs_amphur = $db_saraburi->query($sql_amphur);
+                                                        $rs_amphur = $db_r4->query($sql_amphur);
                                                         $rs_amphur->execute();
                                                         $result_amphur = $rs_amphur->fetchAll(PDO::FETCH_ASSOC);
                                                     ?>
@@ -91,33 +112,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- ./ Content -->
-                <!-- Footer -->
-                <?php include("footer.php"); ?>
-                <!-- ./ Footer -->
-            </div>
-            <!-- ./ Content body -->
-        </div>
-        <!-- ./ Content wrapper -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+
+   </div>
+      <!-- END - Container -->
+ </div> 
+<!-- modal-main -->
+       <!-- ./ Content wrapper -->
+       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div id="showModal"></div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="diseaseModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div id="diseaseShowModal"></div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="FollowModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width: 1200px;">
-                <div class="modal-content">
-                    <div id="showFollowModal"></div>
                 </div>
             </div>
         </div>
@@ -128,11 +132,21 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="diseaseModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div id="diseaseShowModal"></div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- ./ Layout wrapper -->
+                                                    </section>
 
-    <!-- Main scripts -->
-    <script src="../../vendors/bundle.js"></script>
+
+
+   <!-- Main scripts -->
+   <script src="../../vendors/bundle.js"></script>
         <!-- To use theme colors with Javascript -->
         <div class="colors">
             <div class="bg-primary"></div>
@@ -148,6 +162,26 @@
             <div class="bg-warning"></div>
             <div class="bg-warning-bright"></div>
         </div>
+<?php
+
+include('footer.php');
+
+
+?>        
+  <!-- Vendor JS Files -->
+  <script src="../../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="../../assets/vendor/php-email-form/validate.js"></script>
+  <script src="../../assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="../../assets/vendor/counterup/counterup.min.js"></script>
+  <script src="../../assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="../../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../../assets/vendor/venobox/venobox.min.js"></script>
+  <script src="../../assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../../assets/js/main.js"></script>
         <!-- Apex chart -->
         <script src="https://apexcharts.com/samples/assets/irregular-data-series.js"></script>
         <script src="../../vendors/charts/apex/apexcharts.min.js"></script>
@@ -159,579 +193,35 @@
         <script src="../../vendors/vmap/jquery.vmap.min.js"></script>
         <script src="../../vendors/vmap/maps/jquery.vmap.usa.js"></script>
         <script src="../../assets/js/examples/vmap.js"></script>
-        <!-- Dashboard scripts -->
-        <script src="../../assets/js/examples/pages/ecommerce-dashboard.js"></script>
-        <!-- Datepicker -->
-        <script src="../../vendors/datepicker/daterangepicker.js"></script>
-        <!-- summernote -->
-        <script rel="stylesheet" href="../../vendors/summernote/summernote-bs4.min.js"></script>
-        <!-- App scripts -->
-        <script src="../../assets/js/app.min.js"></script>
+
+            <!-- App scripts -->
+            <!-- <script src="../../assets/js/app.min.js"></script> -->
         <script src="../../vendors/leaflet/leaflet.js"></script>
         <script src="../../vendors/leaflet/easy-button.js"></script>
         <script src="../../vendors/leaflet/js/leaflet.extra-markers.min.js"></script>
         <script src="../../js/check_disease.js"></script>
-        <script>
-            $(document).ready(function () {
-                //----------------------------------------
-                $('.datepicker').daterangepicker({
+
+        <!-- FusionCharts -->
+        <script type="text/javascript" src="../../vendors/fusioncharts-suite-xt/js/fusioncharts.js"></script>
+        <!-- jQuery-FusionCharts -->
+        <script type="text/javascript" src="../../vendors/fusioncharts-suite-xt/integrations/jquery/js/jquery-fusioncharts.js"></script>
+        <!-- Fusion Theme -->
+        <script type="text/javascript" src="../../vendors/fusioncharts-suite-xt/js/themes/fusioncharts.theme.fusion.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('.datepicker').daterangepicker({
                     singleDatePicker: true,
                     showDropdowns: true,
                     locale: {
                         format: "YYYY-MM-DD",
                     }
                 });
-                //----------------------------------------
-                check_disease();
-                LoadPatient();
-                toastr.options = {
-                    timeOut: 3000,
-                    progressBar: true,
-                    showMethod: "slideDown",
-                    hideMethod: "slideUp",
-                    showDuration: 200,
-                    hideDuration: 200
-                };
-            });
-            function LoadPatient() {
-                let date_start = $("#date_start").val();
-                let date_end = $("#date_end").val();
-                let id_506 = $("#id_506").val();
-                let ampur = $("#ampur").val();
-                $.ajax({
-                    beforeSend: function(){
-                        $("#loader").fadeIn();
-                        $("#showTable").hide();
-                    },
-                    type: "POST",
-                    url: "ajax/indexPatient/getTable.php",
-                    data: { 
-                        date_start:date_start,
-                        date_end:date_end,
-                        id_506:id_506,
-                        ampur:ampur},
-                    dataType: "html",
-                    success: function (response) {
-                        $("#showTable").html(response);
-                        $('#dataTable').DataTable({
-                            searching: true,
-                            paging: true,
-                            info: true,
-                            responsive: true,
-                            order: [[ 0, "desc" ]],
-                            pageLength: 25,
-                            lengthMenu: [10, 25, 50, 100, 500, 1000] ,
-                        });
-                        $("#loader").hide();
-                        $("#showTable").fadeIn();
-                    }
-                });
-            }
-            function ImportData() {
-                $('#myModal').modal('show');
-                $('#showModal').load("ajax/indexPatient/formImport.php",function(){
-                    $("#ImportSubmit").click(function() {
-                        var fileImport = $('#fileImport').val();
-                        if(fileImport == ""){
-                            toastr.info('กรุณาเลือกไฟล์อัปโหลด!');
-                            return false;
-                        }
-                        swal({
-                            title: "แจ้งเตือน",
-                            text: "ยืนยันการอัปโหลดไฟล์ ?",
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: false,
-                        }).then((Confirm) => {
-                            if (Confirm) {
-                                let myForm = document.getElementById('ImportFile');
-                                let formData = new FormData(myForm);
-                                $.ajax({
-                                    beforeSend: function(){
-                                        $("#ImportSubmit").prop("disabled", true);
-                                        $("#ImportSubmit").html("<span class='spinner-border spinner-border-sm mr-2' role='status' aria-hidden='true'></span>Loading...");
-                                    },
-                                    url: 'ajax/indexPatient/importData.php',
-                                    type: 'POST',
-                                    dataType: 'json',
-                                    contentType: false,
-                                    cache: false,
-                                    processData:false,
-                                    data: formData,
-                                    success : function (result) {
-                                        $("#ImportSubmit").prop("disabled", false);
-                                        $("#ImportSubmit").html("<i class='fas fa-upload mr-1'></i> นำเข้าข้อมูล");
-                                        if(result.result == "1"){
-                                            $('#myModal').modal('hide');
-                                            toastr.success('นำเข้าข้อมูลสำเร็จ!');
-                                            LoadPatient();
-                                        }else if(result.result == "0"){
-                                            toastr.warning('นำเข้าข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง!');
-                                        }else{
-                                            toastr.error('ติดต่อเซิฟเวอร์ไม่สำเร็จ!');
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    });	
-                });
-            }
-            function ImportDataTxt() {
-                $('#myModal').modal('show');
-                $('#showModal').load("ajax/indexPatient/formImportTxt.php",function(){
-                    $("#ImportSubmit").click(function() {
-                        var fileImport = $('#fileImport').val();
-                        if(fileImport == ""){
-                            toastr.info('กรุณาเลือกไฟล์อัปโหลด!');
-                            return false;
-                        }
-                        swal({
-                            title: "แจ้งเตือน",
-                            text: "ยืนยันการอัปโหลดไฟล์ ?",
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: false,
-                        }).then((Confirm) => {
-                            if (Confirm) {
-                                let myForm = document.getElementById('ImportFile');
-                                let formData = new FormData(myForm);
-                                $.ajax({
-                                    beforeSend: function(){
-                                        $("#ImportSubmit").prop("disabled", true);
-                                        $("#ImportSubmit").html("<span class='spinner-border spinner-border-sm mr-2' role='status' aria-hidden='true'></span>Loading...");
-                                    },
-                                    url: 'ajax/indexPatient/importDataTxt.php',
-                                    type: 'POST',
-                                    dataType: 'json',
-                                    contentType: false,
-                                    cache: false,
-                                    processData:false,
-                                    data: formData,
-                                    success : function (result) {
-                                        $("#ImportSubmit").prop("disabled", false);
-                                        $("#ImportSubmit").html("<i class='fas fa-upload mr-1'></i> นำเข้าข้อมูล");
-                                        if(result.result == "1"){
-                                            $('#myModal').modal('hide');
-                                            toastr.success('นำเข้าข้อมูลสำเร็จ!');
-                                            LoadPatient();
-                                        }else if(result.result == "0"){
-                                            toastr.warning('นำเข้าข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง!');
-                                        }else{
-                                            toastr.error('ติดต่อเซิฟเวอร์ไม่สำเร็จ!');
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    });	
-                });
-            }
-            var mymap;
-            var geojson = "";
-            function MapManage(E0) {
-                $('#myModal').modal('show');
-                $('#showModal').load("ajax/indexPatient/formMap.php"
-                ,{"E0":E0},function(){
-                    if (mymap != undefined) { mymap.remove(); }
-                    mymap = L.map('map');
-                    
-                    if(geojson != ""){
-                        if(geojson != ""){
-                            mymap.removeLayer(geojson);
-                        }
-                    }
-                    $.ajax({
-                        type: "POST",
-                        url: "ajax/indexPatient/getGeojson.php",
-                        data: { btnGeojson: "01" },
-                        dataType: "json",
-                        success: function(result) {
+});
 
-                            mymap.setView([14.65, 100.91667], 10);
-                            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGV3cGF3YXQiLCJhIjoiY2s5amx6OGowMDA1djNlczNvdTYwenQ0OCJ9.6S9AQ3BZS6zIt_eDLMhFfg', {
-                                attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                                id: 'mapbox.satellite',
-                                accessToken: 'pk.eyJ1IjoiZGV3cGF3YXQiLCJhIjoiY2p4eWJ2YzFyMDhvazNucGViczV0YzNhMSJ9.km2olU7scxqSE8GkIFTSZA',
-                            }).addTo(mymap);;
-                            geojson = new L.GeoJSON(result, {
-                                style: style,
-                            }).addTo(mymap);
 
-                            var marker = L.marker(new L.LatLng($("#lat").val(),$("#lon").val()),{
-                                draggable: true
-                            }).addTo(mymap);
-                            
-                            var circle = L.circle(new L.LatLng($("#lat").val(),$("#lon").val()), {
-                                color: "red",
-                                fillColor: "#f03",
-                                fillOpacity: 0.1,
-                                radius: $("#radius").val()
-                            }).addTo(mymap);
+</script>
+    
+</body>
 
-                            marker.on('dragend', function (e) {
-                                mymap.panTo(new L.LatLng(marker.getLatLng().lat,marker.getLatLng().lng));
-                                document.getElementById('lat').value = marker.getLatLng().lat;
-                                document.getElementById('lon').value = marker.getLatLng().lng;
-                                circle.setLatLng(new L.LatLng(marker.getLatLng().lat,marker.getLatLng().lng));
-                            });
-
-                            $("#radius").change(function () { 
-                                circle.setRadius($(this).val());
-                            });
-                        }
-                    });
-                    /*--------------------------------------------------------*/
-                    $("#MapSubmit").click(function() {
-                        let lat = $('#lat').val();
-                        let lon = $('#lon').val();
-                        let radius = $('#radius').val();
-                        if(lat == "" || lon == "" || lat == "0" || lon == "0"){
-                            toastr.info('กรุณาเลือกพิกัด!');
-                            return false;
-                        }
-                        if(radius == ""){
-                            toastr.info('กรุณาใส่รัศมีอย่างน้อย 0');
-                            return false;
-                        }
-                        swal({
-                            title: "แจ้งเตือน",
-                            text: "ยืนยันการบันทึกพิกัด ?",
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: false,
-                        }).then((Confirm) => {
-                            if (Confirm) {
-                                let myForm = document.getElementById('MapManage');
-                                let formData = new FormData(myForm);
-                                $.ajax({
-                                    url: 'ajax/indexPatient/Map.php',
-                                    type: 'POST',
-                                    dataType: 'json',
-                                    contentType: false,
-                                    cache: false,
-                                    processData:false,
-                                    data: formData,
-                                    success : function (result) {
-                                        if(result.result == "1"){
-                                            $('#myModal').modal('hide');
-                                            toastr.success('บันทึกพิกัดข้อมูลสำเร็จ!');
-                                            LoadPatient();
-                                        }else if(result.result == "2"){
-                                            toastr.warning('ไม่มีการแก้ไขข้อมูล!');
-                                        }else if(result.result == "0"){
-                                            toastr.warning('บันทึกพิกัดไม่ข้อมูลสำเร็จ กรุณาลองใหม่อีกครั้ง!');
-                                        }else{
-                                            toastr.error('ติดต่อเซิฟเวอร์ไม่สำเร็จ!');
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    });	
-                });
-            }
-            function style(feature) {
-                return {
-                    fillColor: '#fff',
-                    weight: 2,
-                    opacity: 1,
-                    color: '#ED5455',
-                    dashArray: '3',
-                    fillOpacity: 0.01
-                };
-            }
-            function EditPatient(E0,DATESICK) {
-                $('#myModal').modal('show');
-                $('#showModal').load("ajax/indexPatient/formEdit.php",{ "E0":E0, "DATESICK":DATESICK },function(){
-                    $('.datepicker_form').daterangepicker({
-                        singleDatePicker: true,
-                        showDropdowns: true,
-                        drops: 'up',
-                        locale: {
-                            format: "YYYY-MM-DD",
-                        }
-                    });
-                    $("#PatientEditSubmit").click(function() {
-                        let NAME = $('#NAME').val();
-                        let gender = $('#gender').val();
-                        let age = $('#age').val();
-                        let OCCUPAT = $('#OCCUPAT').val();
-                        let nation = $('#nation').val();
-                        let address_all = $('#address_all').val();
-                        let ADDRCODE = $('#ADDRCODE').val();
-                        let HSERV = $('#HSERV').val();
-                        let DATESICK = $('#DATESICK').val();
-                        let DATEDEFINE = $('#DATEDEFINE').val();
-                        let Rerx = $('#Rerx').val();
-                        let Typept = $('#Typept').val();
-                        if(NAME == "" || gender == "" || age == "" || OCCUPAT == "" || nation == "" || address_all == "" || ADDRCODE == "" || HSERV == "" || DATESICK == "" || DATEDEFINE == "" || Rerx == "" || Typept == ""){
-                            toastr.info('กรุณากรอกข้อมูลให้ครบ!');
-                            return false;
-                        }
-                        swal({
-                            title: "แจ้งเตือน",
-                            text: "ยืนยันการแก้ไขข้อมูล ?",
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: false,
-                        }).then((Confirm) => {
-                            if (Confirm) {
-                                let myForm = document.getElementById('EditPatient');
-                                let formData = new FormData(myForm);
-                                $.ajax({
-                                    url: 'ajax/indexPatient/Edit.php',
-                                    type: 'POST',
-                                    dataType: 'json',
-                                    contentType: false,
-                                    cache: false,
-                                    processData:false,
-                                    data: formData,
-                                    success : function (result) {
-                                        if(result.result == "1"){
-                                            $('#myModal').modal('hide');
-                                            toastr.success('แก้ไขข้อมูลสำเร็จ!');
-                                            LoadPatient();
-                                        }else if(result.result == "2"){
-                                            toastr.warning('ไม่มีการแก้ไขข้อมูล!');
-                                        }else if(result.result == "0"){
-                                            toastr.warning('แก้ไขไม่สำเร็จ กรุณาลองใหม่อีกครั้ง!');
-                                        }else{
-                                            toastr.error('ติดต่อเซิฟเวอร์ไม่สำเร็จ!');
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    });	
-                });
-            }
-            function DeletePatient(E0,DATESICK) {
-                swal({
-                    title: "แจ้งเตือน",
-                    text: "ยืนยันการลบข้อมูล ?",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                }).then((Confirm) => {
-                    if (Confirm) {
-                        $.ajax({
-                            type: "POST",
-                            url: "ajax/indexPatient/Delete.php",
-                            data: {E0:E0,DATESICK:DATESICK},
-                            dataType: "json",
-                            success: function (result) {
-                                if(result.result == "1"){
-                                    toastr.success("แจ้งเตือน","ลบผู้ป่วย E0 ที่ : "+E0+" สำเร็จ!");
-                                    $("#tr_" + E0 + "-" + DATESICK).fadeOut(1000);
-                                } else if(result.result == "0"){
-                                    toastr.warning('ลบไม่สำเร็จ กรุณาลองใหม่อีกครั้ง!');
-                                } else {
-                                    toastr.error('ติดต่อเซิฟเวอร์ไม่สำเร็จ!');
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-            function DetailPatient(E0,DATESICK) {
-                $('#myModal').modal('show');
-                $("#showModal").load("ajax/indexPatient/formDetail.php",{"E0":E0, "DATESICK":DATESICK});
-            }
-            function getOption506() {
-                $.ajax({
-                    type: "POST",
-                    url: "ajax/indexPatient/getOption506.php",
-                    dataType: "html",
-                    success: function (response) {
-                        $("#id_506").html(response);
-                    }
-                });
-            }
-/*-------------------------------------------------------------------------------------------------------------------------------------------*/
-            function LoadPatientFollow(E0,DATESICK) {
-                $('#FollowModal').modal('show');
-                $('#showFollowModal').load("ajax/indexPatientFollow/FormShowData.php",{"E0":E0,"DATESICK":DATESICK},function(){
-                    $('#dataTableFollow').DataTable({
-                        searching: true,
-                        paging: true,
-                        info: true,
-                        responsive: true,
-                        ordering: false,
-                        pageLength: 10,
-                        lengthMenu: [10, 25, 50, 100, 500, 1000] ,
-                    });
-                });
-            }
-            function AddPatientFollow(E0,DATESICK) {
-                $('#subModal').modal('show');
-                $('#showSubModal').load("ajax/indexPatientFollow/FormAdd.php",{"E0":E0,"DATESICK":DATESICK},function(){
-                    $('.datepicker_follow').daterangepicker({
-                        singleDatePicker: true,
-                        showDropdowns: true,
-                        drops: 'up',
-                        locale: {
-                            format: "YYYY-MM-DD",
-                        }
-                    });
-                    $("#FollowAddSubmit").click(function() {
-                        var follow_date = $('#follow_date').val();
-                        var follow_detail = $('#follow_detail').val();
-                        if(follow_detail == "" || follow_date == ""){
-                            toastr.info('กรุณากรอกข้อมูลให้ครบ!');
-                            return false;
-                        }
-                        swal({
-                            title: "แจ้งเตือน",
-                            text: "ยืนยันการบันทึกข้อมูล ?",
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: false,
-                        }).then((Confirm) => {
-                            if (Confirm) {
-                                let myForm = document.getElementById('AddPatientFollow');
-                                let formData = new FormData(myForm);
-                                $.ajax({
-                                    url: 'ajax/indexPatientFollow/Add.php',
-                                    type: 'POST',
-                                    dataType: 'json',
-                                    contentType: false,
-                                    cache: false,
-                                    processData:false,
-                                    data: formData,
-                                    success : function (result) {
-                                        if(result.result == "1"){
-                                            $('#subModal').modal('hide');
-                                            toastr.success('เพิ่มข้อมูลสำเร็จ!');
-                                            LoadPatientFollow(E0,DATESICK);
-                                        }else if(result.result == "0"){
-                                            toastr.warning('เพิ่มไม่สำเร็จ กรุณาลองใหม่อีกครั้ง!');
-                                        }else{
-                                            toastr.error('ติดต่อเซิฟเวอร์ไม่สำเร็จ!');
-                                        }   
-                                    }
-                                });
-                            }
-                        });
-                    });
-                });
-            }
-            function EditPatientFollow(follow_id,E0,DATESICK) {
-                $('#subModal').modal('show');
-                $('#showSubModal').load("ajax/indexPatientFollow/FormEdit.php",{"E0":E0,"follow_id":follow_id,"DATESICK":DATESICK},function(){
-                    $('.datepicker_follow').daterangepicker({
-                        singleDatePicker: true,
-                        showDropdowns: true,
-                        drops: 'up',
-                        locale: {
-                            format: "YYYY-MM-DD",
-                        }
-                    });
-                    $("#FollowEditSubmit").click(function() {
-                        var follow_date = $('#follow_date').val();
-                        var follow_detail = $('#follow_detail').val();
-                        if(follow_detail == "" || follow_date == ""){
-                            toastr.info('กรุณากรอกข้อมูลให้ครบ!');
-                            return false;
-                        }
-                        swal({
-                            title: "แจ้งเตือน",
-                            text: "ยืนยันการแก้ไขข้อมูล ?",
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: false,
-                        }).then((Confirm) => {
-                            if (Confirm) {
-                                let myForm = document.getElementById('EditPatientFollow');
-                                let formData = new FormData(myForm);
-                                $.ajax({
-                                    url: 'ajax/indexPatientFollow/Edit.php',
-                                    type: 'POST',
-                                    dataType: 'json',
-                                    contentType: false,
-                                    cache: false,
-                                    processData:false,
-                                    data: formData,
-                                    success : function (result) {
-                                        if(result.result == "1"){
-                                            $('#subModal').modal('hide');
-                                            toastr.success('แก้ไขข้อมูลสำเร็จ!');
-                                            LoadPatientFollow(E0,DATESICK);
-                                        }else if(result.result == "0"){
-                                            toastr.warning('แก้ไขไม่สำเร็จ กรุณาลองใหม่อีกครั้ง!');
-                                        }else{
-                                            toastr.error('ติดต่อเซิฟเวอร์ไม่สำเร็จ!');
-                                        }   
-                                    }
-                                });
-                            }
-                        });
-                    });
-                });
-            }
-            function DeletePatientFollow(follow_id,E0,DATESICK) {
-                swal({
-                    title: "แจ้งเตือน",
-                    text: "ยืนยันการลบข้อมูล ?",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                }).then((Confirm) => {
-                    if (Confirm) {
-                        $.ajax({
-                            type: "POST",
-                            url: "ajax/indexPatientFollow/Delete.php",
-                            data: {E0:E0,follow_id:follow_id,DATESICK:DATESICK},
-                            dataType: "json",
-                            success: function (result) {
-                                if(result.result == "1"){
-                                    toastr.success("แจ้งเตือน","ลบการติดตามผู้ป่วยสำเร็จ!");
-                                    $("#tr_" + follow_id).fadeOut(1000);
-                                } else if(result.result == "0"){
-                                    toastr.warning('ลบไม่สำเร็จ กรุณาลองใหม่อีกครั้ง!');
-                                } else {
-                                    toastr.error('ติดต่อเซิฟเวอร์ไม่สำเร็จ!');
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-/*-------------------------------------------------------------------------------------------------------------------------------------------*/
-            function readURL(input,value,show_position) {
-                var fty = ["xlsx", "xls"];
-                var permiss = 0;
-                var file_type = value.split('.');
-                file_type = file_type[file_type.length-1];
-                if (jQuery.inArray( file_type , fty ) !== -1) {
-                    $(show_position).html(input.value);
-                } else if (value == "") {
-                    $(show_position).html("เลือกไฟล์...");
-                    $(input).val("");
-                } else {
-                    toastr.info('อัพโหลดได้เฉพาะไฟล์นามสกุล (.xlsx .xls) เท่านั้น!');
-                    $(show_position).html("เลือกไฟล์...");
-                    $(input).val("");
-                    return false;
-                }
-            }
-            function readURLtxt(input,value,show_position) {
-                var fty = ["txt"];
-                var permiss = 0;
-                var file_type = value.split('.');
-                file_type = file_type[file_type.length-1];
-                if (jQuery.inArray( file_type , fty ) !== -1) {
-                    $(show_position).html(input.value);
-                } else if (value == "") {
-                    $(show_position).html("เลือกไฟล์...");
-                    $(input).val("");
-                } else {
-                    toastr.info('อัพโหลดได้เฉพาะไฟล์นามสกุล (.txt) เท่านั้น!');
-                    $(show_position).html("เลือกไฟล์...");
-                    $(input).val("");
-                    return false;
-                }
-            }
-        </script>
-    </body>
 </html>

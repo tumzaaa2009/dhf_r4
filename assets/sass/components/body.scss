@@ -1,0 +1,15 @@
+body {
+    font-family: 'Inter', -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
+    position: relative;
+    background-color: #e4e5eb;
+    font-size: 15px;
+    color: black;
+
+    &.no-scroll {
+        overflow: hidden;
+    }
+}
+
+* {
+    min-width: 0;
+}

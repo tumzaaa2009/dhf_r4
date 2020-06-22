@@ -1,0 +1,100 @@
+.layout-builder-wrapper {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    right: -330px;
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    transition: right .2s;
+}
+
+.layout-builder-wrapper.show {
+    right: 0;
+}
+
+.layout-builder {
+    width: 330px;
+    box-shadow: 8px 0 10px 3px rgba(0, 0, 0, 0.50);
+    overflow: auto;
+    margin-bottom: 0;
+    border-radius: 0;
+    height: 100vh;
+}
+
+.layout-builder-buttons {
+    background: linear-gradient(45deg, #ff7043, #ed33ab);
+    border-top-left-radius: .75rem;
+    border-bottom-left-radius: .75rem;
+    overflow: hidden;
+}
+
+.layout-builder-buttons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-size: 18px;
+}
+
+.layout-builder-buttons a:hover {
+    background-color: #333;
+}
+
+.layout-builder .theme-color-palette {
+    display: flex;
+}
+
+.layout-builder .theme-color-palette a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: .75rem;
+    position: relative;
+    margin-right: .7rem;
+    color: white;
+}
+
+.layout-builder .theme-color-palette a:before {
+    display: none;
+    content: "\e64c";
+    font-family: 'themify';
+}
+
+.layout-builder .theme-color-palette a.active:before {
+    display: block;
+}
+
+.layout-builder-buttons a.layout-builder-toggle i {
+    -webkit-animation: spin 2s linear infinite;
+    -moz-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 992px) {
+    .layout-builder-wrapper {
+        display: none;
+    }
+}
