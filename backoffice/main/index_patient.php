@@ -20,29 +20,29 @@ include('header.php')
 <body>
 <section class="main">
 <div class="container">    
-    <div class="content">
-                    <div class="page-header">
-                        <div>
-                            <h3>จัดการผู้ป่วย</h3>
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="index.php">หน้าแรก</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        จัดการผู้ป่วย
-                                    </li> 
-                                    
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                    <?php echo ($token->group_name != "" ? $token->group_name : "กรุณาเลือกกลุ่มโรค"); ?>
-
-                                    </li>
-
-                                </ol>
-                            </nav>
-                        </div>
-                    <div>            
-      </div> 
+                <div class="content">
+                                <div class="page-header"><div>
+                                        <h3>จัดการผู้ป่วย</h3>
+                    <nav class="navbar navbar-expand-md navbar-light bg-light">
+                
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mr-auto">
+                        <li class="breadcrumb-item"> <a href="index.php">หน้าแรก</a> </li>
+                        <li class="breadcrumb-item active" aria-current="page">จัดการผู้ป่วย </li> 
+                        <li class="breadcrumb-item active" aria-current="page"> <?php echo ($token->group_name != "" ? $token->group_name : "กรุณาเลือกกลุ่มโรค"); ?>  </li> 
+                        </ul>
+                        <ul class="navbar-nav">
+                        <li class="breadcrumb-item active" aria-current="page">
+                        <button type="button" class="btn btn-sm btn-primary" onclick="ImportData()"><i class="fas fa-upload mr-1"></i> นำเข้าข้อมูล xlsx.</button>           
+                        </ul>
+                    </div>
+                    </nav> 
+                </div>
+                <div>            
+            </div> 
 
 <div class="row">
                         <div class="col-md-12">
@@ -98,13 +98,7 @@ include('header.php')
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <div>
-                                        <button type="button" class="btn btn-sm btn-primary" onclick="ImportData()"><i class="fas fa-upload mr-1"></i> นำเข้าข้อมูล xlsx.</button>
-                                        <!--<button type="button" class="btn btn-sm btn-secondary" onclick="ImportDataTxt()"><i class="fas fa-upload mr-1"></i> นำเข้าข้อมูล txt.</button>-->
-                                    </div>
-                                </div>
+                   
                                 <div class="card-body">
                                     <div class="loader" id="loader">Loading...</div>
                                     <div class="table-responsive" id="showTable" style="display: none;"></div>
@@ -218,7 +212,56 @@ $(document).ready(function(){
                     }
                 });
 });
-
+function ImportData() {
+                $('#myModal').modal('show');
+                $('#showModal').load("ajax/indexPatient/formImport.php",function(){
+                    $("#ImportSubmit").click(function() {
+                        var fileImport = $('#fileImport').val();
+                        if(fileImport == ""){
+                            toastr.info('กรุณาเลือกไฟล์อัปโหลด!');
+                            return false;
+                        }
+                        swal({
+                            title: "แจ้งเตือน",
+                            text: "ยืนยันการอัปโหลดไฟล์ ?",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: false,
+                        }).then((Confirm) => {
+                            if (Confirm) {
+                                let myForm = document.getElementById('ImportFile');
+                                let formData = new FormData(myForm);
+                                $.ajax({
+                                    beforeSend: function(){
+                                        $("#ImportSubmit").prop("disabled", true);
+                                        $("#ImportSubmit").html("<span class='spinner-border spinner-border-sm mr-2' role='status' aria-hidden='true'></span>Loading...");
+                                    },
+                                    url: 'ajax/indexPatient/importData.php',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    contentType: false,
+                                    cache: false,
+                                    processData:false,
+                                    data: formData,
+                                    success : function (result) {
+                                        $("#ImportSubmit").prop("disabled", false);
+                                        $("#ImportSubmit").html("<i class='fas fa-upload mr-1'></i> นำเข้าข้อมูล");
+                                        if(result.result == "1"){
+                                            $('#myModal').modal('hide');
+                                            toastr.success('นำเข้าข้อมูลสำเร็จ!');
+                                            LoadPatient();
+                                        }else if(result.result == "0"){
+                                            toastr.warning('นำเข้าข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง!');
+                                        }else{
+                                            toastr.error('ติดต่อเซิฟเวอร์ไม่สำเร็จ!');
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });	
+                });
+            }
 
 </script>
     
