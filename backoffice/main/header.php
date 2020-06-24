@@ -58,8 +58,8 @@
     <link rel="stylesheet" href="../../vendors/datepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="../../vendors/summernote/summernote-bs4.min.css">
-
-
+<!-- Toastr -->
+<link href="../../assets/lib/toastr/build/toastr.min.css" rel="stylesheet">
   <!-- =======================================================
   * Template Name: Techie - v2.0.0
   * Template URL: https://bootstrapmade.com/techie-free-skin-bootstrap-3/
@@ -96,10 +96,10 @@
               <li><a href="#services">Services</a></li>
               <li><a href="#portfolio">Portfolio</a></li>
               <li><a href="index_patient.php" <?php if($now_page == "index_patient.php"){ echo "class='active'"; } ?>>จัดการผู้ป่วย</a></li>
-              <li class="drop-down"><a href="">จัดการระบบ</a>
+              <li class="drop-down"><a href=""><i class="fa fa-cog" aria-hidden="true"></i> จัดการระบบ</a>
                 <ul>
                   <li><a href="index_group.php">จัดการกลุ่มโรค</a></li>
-                  <li class="drop-down"><a href="#">Deep Drop Down</a>
+                  <!-- <li class="drop-down"><a href="#">Deep Drop Down</a>
                     <ul>
                       <li><a href="#">Deep Drop Down 1</a></li>
                       <li><a href="#">Deep Drop Down 2</a></li>
@@ -107,10 +107,10 @@
                       <li><a href="#">Deep Drop Down 4</a></li>
                       <li><a href="#">Deep Drop Down 5</a></li>
                     </ul>
-                  </li>
-                  <li><a href="#">Drop Down 2</a></li>
-                  <li><a href="#">Drop Down 3</a></li>
-                  <li><a href="#">Drop Down 4</a></li>
+                  </li> -->
+                  <li><a href="setting_calendar.php">จัดการปฏิทินโรคระบาด</a></li>
+                  <li><a href="setting_population.php">จัดการจำนวนประชากร</a></li>
+                  <!-- <li><a href="#">Drop Down 4</a></li> -->
                 </ul>
               </li>
     
@@ -145,7 +145,7 @@
     <div class="container-fluid" data-aos="fade-up">
       <div class="row justify-content-center">
         <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1>Bettter Digital Experience With Techie</h1>
+          <h1><?=$token->group_name ?></h1>
           <h2>We are team of talanted designers making websites with Bootstrap</h2>
           <div><a href="#about" class="btn-get-started scrollto">Get Started</a></div>
         </div>
