@@ -1,6 +1,6 @@
 <?php include("header.php"); ?>
             <!-- Content body -->
-            <div class="content-body">
+            <div class="content-body container">
                 <!-- Content -->
                 <div class="content">
                     <div class="page-header">
@@ -39,9 +39,7 @@
                     </div>
                 </div>
                 <!-- ./ Content -->
-                <!-- Footer -->
-                <?php include("footer.php"); ?>
-                <!-- ./ Footer -->
+     
             </div>
             <!-- ./ Content body -->
         </div>
@@ -69,7 +67,9 @@
         </div>
     </div>
     <!-- ./ Layout wrapper -->
-
+           <!-- Footer -->
+           <?php include("footer.php"); ?>
+                <!-- ./ Footer -->
     <!-- Main scripts -->
     <script src="../../vendors/bundle.js"></script>
         <!-- To use theme colors with Javascript -->
@@ -87,6 +87,20 @@
             <div class="bg-warning"></div>
             <div class="bg-warning-bright"></div>
         </div>
+   <!-- Vendor JS Files -->
+   <script src="../../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="../../assets/vendor/php-email-form/validate.js"></script>
+  <script src="../../assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="../../assets/vendor/counterup/counterup.min.js"></script>
+  <script src="../../assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="../../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../../assets/vendor/venobox/venobox.min.js"></script>
+  <script src="../../assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../../assets/js/main.js"></script>
         <!-- Apex chart -->
         <script src="https://apexcharts.com/samples/assets/irregular-data-series.js"></script>
         <script src="../../vendors/charts/apex/apexcharts.min.js"></script>
@@ -98,11 +112,21 @@
         <script src="../../vendors/vmap/jquery.vmap.min.js"></script>
         <script src="../../vendors/vmap/maps/jquery.vmap.usa.js"></script>
         <script src="../../assets/js/examples/vmap.js"></script>
-        <!-- Dashboard scripts -->
-        <script src="../../assets/js/examples/pages/ecommerce-dashboard.js"></script>
+
         <!-- App scripts -->
-        <script src="../../assets/js/app.min.js"></script>
+        <!-- <script src="../../assets/js/app.min.js"></script> -->
         <script src="../../js/check_disease.js"></script>
+
+        <!-- FusionCharts -->
+        <script type="text/javascript" src="../../vendors/fusioncharts-suite-xt/js/fusioncharts.js"></script>
+        <!-- jQuery-FusionCharts -->
+        <script type="text/javascript" src="../../vendors/fusioncharts-suite-xt/integrations/jquery/js/jquery-fusioncharts.js"></script>
+        <!-- Fusion Theme -->
+        <script type="text/javascript" src="../../vendors/fusioncharts-suite-xt/js/themes/fusioncharts.theme.fusion.js"></script>
+        <!-- Toastr -->
+        <script src="../../assets/lib/toastr/build/toastr.min.js"></script>
+
+    
         <script>
             $(document).ready(function () {
                 check_disease();
@@ -271,9 +295,9 @@
                     }
                 });
             }
-            function AMPlPopulation(year) {
+            function ProvicelPopulation(year) {
                 $('#myModal').modal('show');
-                $('#showModal').load("ajax/settingPopulation/formAMP.php",{"year":year},function(){
+                $('#showModal').load("ajax/settingPopulation/formProvince.php",{"year":year},function(){
                     $("#PopulationAddSubmit").click(function() {
                         let year = $('#year').val();
                         if(year == ""){
@@ -291,7 +315,7 @@
                                 let myForm = document.getElementById('form-add-amp');
                                 let formData = new FormData(myForm);
                                 $.ajax({
-                                    url: 'ajax/settingPopulation/AddAmp.php',
+                                    url: 'ajax/settingPopulation/AddProvince.php',
                                     type: 'POST',
                                     dataType: 'json',
                                     contentType: false,
@@ -378,5 +402,8 @@
                 }
             }
         </script>
+
+
+
     </body>
 </html>

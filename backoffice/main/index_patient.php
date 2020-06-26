@@ -204,6 +204,7 @@ include('footer.php');
 
 <script>
 $(document).ready(function(){
+    LoadPatient();
     $('.datepicker').daterangepicker({
                     singleDatePicker: true,
                     showDropdowns: true,
@@ -262,6 +263,161 @@ function ImportData() {
                     });	
                 });
             }
+            function ImportDataTxt() {
+                $('#myModal').modal('show');
+                $('#showModal').load("ajax/indexPatient/formImportTxt.php",function(){
+                    $("#ImportSubmit").click(function() {
+                        var fileImport = $('#fileImport').val();
+                        if(fileImport == ""){
+                            toastr.info('กรุณาเลือกไฟล์อัปโหลด!');
+                            return false;
+                        }
+                        swal({
+                            title: "แจ้งเตือน",
+                            text: "ยืนยันการอัปโหลดไฟล์ ?",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: false,
+                        }).then((Confirm) => {
+                            if (Confirm) {
+                                let myForm = document.getElementById('ImportFile');
+                                let formData = new FormData(myForm);
+                                $.ajax({
+                                    beforeSend: function(){
+                                        $("#ImportSubmit").prop("disabled", true);
+                                        $("#ImportSubmit").html("<span class='spinner-border spinner-border-sm mr-2' role='status' aria-hidden='true'></span>Loading...");
+                                    },
+                                    url: 'ajax/indexPatient/importDataTxt.php',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    contentType: false,
+                                    cache: false,
+                                    processData:false,
+                                    data: formData,
+                                    success : function (result) {
+                                        $("#ImportSubmit").prop("disabled", false);
+                                        $("#ImportSubmit").html("<i class='fas fa-upload mr-1'></i> นำเข้าข้อมูล");
+                                        if(result.result == "1"){
+                                            $('#myModal').modal('hide');
+                                            toastr.success('นำเข้าข้อมูลสำเร็จ!');
+                                            LoadPatient();
+                                        }else if(result.result == "0"){
+                                            toastr.warning('นำเข้าข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง!');
+                                        }else{
+                                            toastr.error('ติดต่อเซิฟเวอร์ไม่สำเร็จ!');
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });	
+                });
+            }
+/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+function readURL(input,value,show_position) {
+                var fty = ["xlsx", "xls"];
+                var permiss = 0;
+                var file_type = value.split('.');
+                file_type = file_type[file_type.length-1];
+                if (jQuery.inArray( file_type , fty ) !== -1) {
+                    $(show_position).html(input.value);
+                } else if (value == "") {
+                    $(show_position).html("เลือกไฟล์...");
+                    $(input).val("");
+                } else {
+                    toastr.info('อัพโหลดได้เฉพาะไฟล์นามสกุล (.xlsx .xls) เท่านั้น!');
+                    $(show_position).html("เลือกไฟล์...");
+                    $(input).val("");
+                    return false;
+                }
+            }
+            function readURLtxt(input,value,show_position) {
+                var fty = ["txt"];
+                var permiss = 0;
+                var file_type = value.split('.');
+                file_type = file_type[file_type.length-1];
+                if (jQuery.inArray( file_type , fty ) !== -1) {
+                    $(show_position).html(input.value);
+                } else if (value == "") {
+                    $(show_position).html("เลือกไฟล์...");
+                    $(input).val("");
+                } else {
+                    toastr.info('อัพโหลดได้เฉพาะไฟล์นามสกุล (.txt) เท่านั้น!');
+                    $(show_position).html("เลือกไฟล์...");
+                    $(input).val("");
+                    return false;
+                }
+            }
+// LOAD PATIENT 
+
+        function LoadPatient() {
+                let date_start = $("#date_start").val();
+                let date_end = $("#date_end").val();
+                let id_506 = $("#id_506").val();
+                let ampur = $("#ampur").val();
+                $.ajax({
+                    beforeSend: function(){
+                        $("#loader").fadeIn();
+                        $("#showTable").hide();
+                    },
+                    type: "POST",
+                    url: "ajax/indexPatient/getTable.php",
+                    data: { 
+                        date_start:date_start,
+                        date_end:date_end,
+                        id_506:id_506,
+                        ampur:ampur},
+                    dataType: "html",
+                    success: function (response) {
+                        $("#showTable").html(response);
+                        $('#dataTable').DataTable({
+                            searching: true,
+                            paging: true,
+                            info: true,
+                            responsive: true,
+                            order: [[ 0, "desc" ]],
+                            pageLength: 25,
+                            lengthMenu: [10, 25, 50, 100, 500, 1000] ,
+                        });
+                        $("#loader").hide();
+                        $("#showTable").fadeIn();
+                    }
+                });
+            }        function LoadPatient() {
+                let date_start = $("#date_start").val();
+                let date_end = $("#date_end").val();
+                let id_506 = $("#id_506").val();
+                let ampur = $("#ampur").val();
+                $.ajax({
+                    beforeSend: function(){
+                        $("#loader").fadeIn();
+                        $("#showTable").hide();
+                    },
+                    type: "POST",
+                    url: "ajax/indexPatient/getTable.php",
+                    data: { 
+                        date_start:date_start,
+                        date_end:date_end,
+                        id_506:id_506,
+                        ampur:ampur},
+                    dataType: "html",
+                    success: function (response) {
+                        $("#showTable").html(response);
+                        $('#dataTable').DataTable({
+                            searching: true,
+                            paging: true,
+                            info: true,
+                            responsive: true,
+                            order: [[ 0, "desc" ]],
+                            pageLength: 25,
+                            lengthMenu: [10, 25, 50, 100, 500, 1000] ,
+                        });
+                        $("#loader").hide();
+                        $("#showTable").fadeIn();
+                    }
+                });
+            }
+
 
 </script>
     
