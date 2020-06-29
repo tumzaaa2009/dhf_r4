@@ -60,6 +60,9 @@
     <link rel="stylesheet" href="../../vendors/summernote/summernote-bs4.min.css">
 <!-- Toastr -->
 <link href="../../assets/lib/toastr/build/toastr.min.css" rel="stylesheet">
+
+<!-- SELECT 2 -->
+<link href="../../assets/lib/select2/select2.min.css" rel="stylesheet">
   <!-- =======================================================
   * Template Name: Techie - v2.0.0
   * Template URL: https://bootstrapmade.com/techie-free-skin-bootstrap-3/
@@ -91,7 +94,7 @@
 
           <nav class="nav-menu d-none d-lg-block">
             <ul>
-              <li class="active"><a href="index.html">Home</a></li>
+              <li class="active"><a href="index.php">Home</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#services">Services</a></li>
               <li><a href="#portfolio">Portfolio</a></li>
