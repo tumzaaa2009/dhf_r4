@@ -11,13 +11,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Techie Bootstrap Template - Index</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+  <title>ไข้เลือดออก เขตสุขภาพที่4</title>
+  <meta content="ไข้เลือดออกเขต4" name="descriptison">
+  <meta content="ไข้เลือดออกเขต4" name="keywords">
 
   <!-- Favicons -->
-  <link href="../../assets/img/favicon.png" rel="icon">
-  <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="img/kisspng-mosquito-control-household-insect-repellents-primo-5ba2f629ec4636.4883996115374065059678.png" rel="icon">
+  <link href="img/kisspng-mosquito-control-household-insect-repellents-primo-5ba2f629ec4636.4883996115374065059678.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -48,10 +48,7 @@
     <!-- <link rel="stylesheet" href="../../assets/css/app.min.css" type="text/css"> -->
     <link rel="stylesheet" href="../../vendors/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="../../vendors/fontawesome/css/all.min.css">
-    <!-- leaflet -->
-    <link rel="stylesheet" href="../../vendors/leaflet/easy-button.css">
-    <link rel="stylesheet" href="../../vendors/leaflet/leaflet.css">
-    <link rel="stylesheet" href="../../vendors/leaflet/css/leaflet.extra-markers.min.css">
+
     <!-- Select2 -->
     <link rel="stylesheet" href="../../vendors/select2/css/select2.min.css" type="text/css">
     <!-- Datepicker -->
@@ -69,6 +66,13 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+<!-- leaflet -->
+  <link rel="stylesheet" href="../../vendors/leaflet/easy-button.css">
+  <link rel="stylesheet" href="../../vendors/leaflet/leaflet.css">
+  <link rel="stylesheet" href="../../vendors/leaflet/css/leaflet.extra-markers.min.css">
+
+
 </head>
 
 <body>
@@ -95,7 +99,7 @@
           <nav class="nav-menu d-none d-lg-block">
             <ul>
               <li class="active"><a href="index.php">Home</a></li>
-              <li><a href="#about">About</a></li>
+              <li><a href="view_map_main.php">แสดงแผนที่อัตราแสน</a></li>
               <li><a href="#services">Services</a></li>
               <li><a href="#portfolio">Portfolio</a></li>
               <li><a href="index_patient.php" <?php if($now_page == "index_patient.php"){ echo "class='active'"; } ?>>จัดการผู้ป่วย</a></li>
@@ -153,7 +157,7 @@
           <div><a href="#about" class="btn-get-started scrollto">Get Started</a></div>
         </div>
         <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
-          <img src="../../assets/img/hero-img.png" class="img-fluid animated" alt="">
+          <img src="img/kisspng-mosquito-control-household-insect-repellents-primo-5ba2f629ec4636.4883996115374065059678.png"  width="500"  class="img-fluid animated" alt="">
         </div>
       </div>
     </div>

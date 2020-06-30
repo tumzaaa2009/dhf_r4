@@ -1,12 +1,20 @@
 <?php include("header.php"); ?>
-
+<style>
+ 
+#map { width: 100%;height: 75%;}
+.mapboxgl-popup {
+max-width: 400px;
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+  </style>
             <!-- Content body -->
-            <div class="content-body">
+        <div class="container">  
+            <div class="content-body ">
                 <!-- Content -->
-                <div class="content">
+                <div class="content mt-3">
                     <div class="page-header">
                         <div>
-                            <h3>แผนที่แสดงการเกิดโรค</h3>
+                            <h3>แผนที่แสดงการเกิดโรคอัตราแสน</h3>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
@@ -95,13 +103,13 @@
                                         </div>
                                         <div class="col-lg-3 col-md-6">
                                             <div class="form-group">
-                                                <label>อัตราป่วย</label>
+                                                <label>จังหวัด</label>
                                                 <?php 
                                                  $select_provice = "SELECT * FROM dhf_province";
                                                  $rs_code_provice = $db_r4->prepare($select_provice);
                                                  $rs_code_provice->execute();
                                                  $results_code_provice = $rs_code_provice->fetchAll();?>
-                            <select class="select2 form-control" name="province[]"  multiple="multiple" onchange="LoadMap();" >                                             
+                            <select class="select2 form-control" name="ampur[]" id="ampur[]" multiple="multiple" onchange="LoadMap();" >                                             
                         <?php  foreach($results_code_provice as $row_code_province){ ?>
                                                      <option value='<?=$row_code_province['Province_CODE']?>'><?=$row_code_province['Province_NAME']?></option>
                                                      
@@ -115,20 +123,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div id="map_dhf"></div>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-12 mt-2" style="width: 1000px;height: 1000px;">
+                    <div id="map" ></div>
+                    </div>
+               
+            </div>
                     </div>
                 </div>
+ </div>  
                 <!-- ./ Content -->
-                <!-- Footer -->
-                <?php include("footer.php"); ?>
-                <!-- ./ Footer -->
+
             </div>
+                  <!-- Footer -->
+                  <?php include("footer.php"); ?>
+                <!-- ./ Footer -->          
             <!-- ./ Content body -->
         </div>
         <!-- ./ Content wrapper -->
@@ -203,15 +213,30 @@
         <!-- DataTable -->
         <script src="../../vendors/dataTable/datatables.min.js"></script>
         <!-- Vamp -->
-        <script src="../../vendors/vmap/jquery.vmap.min.js"></script>
+        <!-- <script src="../../vendors/vmap/jquery.vmap.min.js"></script>
         <script src="../../vendors/vmap/maps/jquery.vmap.usa.js"></script>
-        <script src="../../assets/js/examples/vmap.js"></script>
+        <script src="../../assets/js/examples/vmap.js"></script> -->
 
             <!-- App scripts -->
             <!-- <script src="../../assets/js/app.min.js"></script> -->
-        <script src="../../vendors/leaflet/leaflet.js"></script>
+        <!-- <script src="../../vendors/leaflet/leaflet.js"></script>
         <script src="../../vendors/leaflet/easy-button.js"></script>
-        <script src="../../vendors/leaflet/js/leaflet.extra-markers.min.js"></script>
+        <script src="../../vendors/leaflet/js/leaflet.extra-markers.min.js"></script> -->
+
+
+ 
+ <script src="../../vendors/leaflet/leaflet.js"></script>
+  <script src="../../vendors/leaflet/easy-button.js"></script>
+  <script src="../../vendors/leaflet/js/leaflet.extra-markers.min.js"></script> 
+
+
+
+
+
+
+
+
+
         <script src="../../js/check_disease.js"></script>
 
         <!-- FusionCharts -->
@@ -236,9 +261,153 @@
                     showDuration: 200,
                     hideDuration: 200
                 };
-              
+                LoadMap(); 
             
             });
+//  
+var geojson = "";
+            var markerall = new Array();
+            var markercount = 0;
+            var info = L.control();
+            var mymap = L.map('map');
+            var legend = L.control({position: 'bottomright'});
+            
+function LoadMap(){
+                
+                let year = $("#year").val();
+                let date_start = $("#date_start").val();
+                let date_end = $("#date_end").val();
+                let id_506 = $("#id_506").val();
+                let scale_type = $("#scale_type").val();
+                let ampur = $("select[name='ampur[]']").map(function() { return $(this).val(); }).get();
+
+                if(geojson != ""){
+                    if(geojson != ""){
+                        mymap.removeLayer(geojson);
+                    }
+                    if(geojson != ""){
+                        mymap.removeLayer(geojson);
+                    }
+                }
+                $.ajax({
+                type: "POST",
+                url: "ajax/viewMapMain/getMap.php",
+                data: {year:year,date_start:date_start, date_end:date_end, year:year, id_506:id_506, scale_type:scale_type,ampur:ampur},
+                dataType: "json",
+                    success: function (result) {
+        	// console.log( JSON.stringify(result, null, 2) );
+            if(geojson != ""){
+                    if(geojson != ""){
+                        mymap.removeLayer(geojson);
+                    }
+                    if(geojson != ""){
+                        mymap.removeLayer(geojson);
+                    }
+                }
+    mymap.createPane('labels');
+
+    // This pane is above markers but below popups
+    mymap.getPane('labels').style.zIndex = 650;
+
+    // Layers in this pane are non-interactive and do not obscure mouse/touch events
+    mymap.getPane('labels').style.pointerEvents = 'none';
+
+   
+mymap.setView([14.65, 100.91667], 8);
+     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidHVtemFhMjAwOSIsImEiOiJja2E3bDRyNnYwNDR6MnlvM2xmNXZzY2prIn0.VTjKIDTqhMnhWYI8LCD5iA', 
+     {
+                            maxZoom: 11,
+                            minZoom: 9,
+                            id: 'mapbox.streets',
+                            accessToken: 'pk.eyJ1IjoidHVtemFhMjAwOSIsImEiOiJja2E3bDRyNnYwNDR6MnlvM2xmNXZzY2prIn0.VTjKIDTqhMnhWYI8LCD5iA'
+                        }).addTo(mymap);
+
+  ///function geo
+   geojson = new L.GeoJSON(result, {
+                            style:style, // stylesheet location
+                            onEachFeature: onEachFeature,
+                        }).addTo(mymap);
+                        legend.addTo(mymap);
+                    
+                    }
+                });
+              }
+function onEachFeature(feature, layer) {
+
+// console.log("fuck",feature.properties.name);
+
+                        layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight,
+                });
+            }
+ function highlightFeature(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 4,
+                    color: '#666',
+                    dashArray: '',
+                    fillOpacity: 0.5
+                });
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                }
+                info.update(layer.feature.properties);
+            }
+            function resetHighlight(e) {
+                geojson.resetStyle(e.target);
+                info.update();
+            }
+            function style(feature) {
+                return {
+                    fillColor: feature.properties.color,
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.3
+                };
+            }
+              
+            info.onAdd = function (mymap) {
+                this._div = L.DomUtil.create('div', 'info-leafletjs'); // create a div with a class "info"
+                this.update();
+                return this._div;
+            };
+
+            info.update = function (props) {
+       
+                    this._div.innerHTML = (props ?  "<div class='card card-body'><h4 class='text-dark font-weight-bold'>" + props.name + "<br></h4>"+"<br>"
+                    +"จำนวนผู้ป่วย : <span class='text-dark font-weight-bold'>"+props.CountPatient+" คน </span><br>"
+                    +"จำนวนประชากรในจังหวัด:<span class='text-dark font-weight-bold'> "+props.Population+" คน </span><br>"
+                    +"คิดเป็น <span class='text-dark font-weight-bold'>"+props.RatePopulation+" ต่อแสนประชากร</span></div>"
+                    : 'เลื่อนเมาส์/Click บริเวณแผนที่');
+                 
+    
+            };
+            info.addTo(mymap);
+            legend.onAdd = function (mymap) {
+       
+                let Scale = [
+                    [0,5,10,20],
+                    [0,20,30,50],
+                    [0,50,100,150]
+                ];
+                let scale_type = $("#scale_type").val();
+         
+             text_legend = "<div class='card card-body'><h6><div class='mb-1 '><i class='fa fa-circle' aria-hidden='true' style='color: #fff'></i> อัตราป่วยต่อแสนประชากร : 0</div>"
+                +"<div class='mb-1'><i class='fa fa-circle' style='color: #28A745' aria-hidden='true'></i> อัตราป่วยต่อแสนประชากร : "+Scale[scale_type][0]+" - "+Scale[scale_type][1]+"</div>"
+                +"<div class='mb-1'><i class='fa fa-circle' aria-hidden='true' style='color: #ffff4d'></i> อัตราป่วยต่อแสนประชากร : "+Scale[scale_type][1]+" - "+Scale[scale_type][2]+"</div>"
+                +"<div class='mb-1'><i class='fa fa-circle' aria-hidden='true' style='color: #FF7C2C'></i> อัตราป่วยต่อแสนประชากร : "+Scale[scale_type][2]+" - "+Scale[scale_type][3]+"</div>"
+                +"<div class='mb-1'><i class='fa fa-circle' aria-hidden='true'style='color: #DC3545' ></i> อัตราป่วยต่อแสนประชากร : > "+Scale[scale_type][3]+"</div></h6></div>";
+
+                var div = L.DomUtil.create('div', 'info-lg legend-lg');
+                div.innerHTML = text_legend;
+                                
+                return div;
+            };
+
+
 
    
         </script>

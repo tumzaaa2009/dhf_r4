@@ -5,18 +5,36 @@
     include("../../../../config/jwt.php");
     date_default_timezone_set("Asia/Bangkok");
 
-    $type_map = $_POST["type_map"];
+
     $year = $_POST["year"];
     $date_start = $_POST["date_start"];
     $date_end = $_POST["date_end"];
     $id_506 = $_POST["id_506"];
-    $ampur = $_POST["ampur"];
-    $scale_type = $_POST["scale_type"];
-    $i++;   
+  $ampur = $_POST["ampur"];
+    $scale_type = $_POST["scale_type"];  
     $date_start = date('Y-m-01', strtotime("$year-$date_start-01"));
     $date_end = date('Y-m-t', strtotime("$year-$date_end-01"));
 
-    if($type_map == "1"){
+
+
+    $i=1;
+    if(isset($_POST['ampur'])){
+        foreach($_POST['ampur'] as $key => $value) {
+            if($i == "1"){
+             $ampur = $value;
+            }else{
+                $ampur = $ampur.",".$value;
+            }
+            $i++;
+        }
+    }
+    if($ampur != ""){
+        $sql_ampur = "WHERE  dh_pro.Province_CODE IN ($ampur) ";
+    }
+
+
+
+    // if($type_map == "1"){
         $sql = "SELECT *
         ,(SELECT COUNT(patien.E1) FROM dhf_patient_r4 patien
         WHERE 
@@ -35,7 +53,7 @@
         FROM gis_area_r4  g4
         INNER JOIN dhf_province dh_pro ON dh_pro.Pro_CODE=g4.areacode
         INNER JOIN dhf_population_lvl2 AS dhflvl2 ON dhflvl2.amp_code=dh_pro.Province_CODE
-        
+        ".$sql_ampur."
         GROUP BY g4.areacode
         ORDER BY dh_pro.Province_CODE ASC";    
         
@@ -47,7 +65,7 @@
         // INNER JOIN dhf_population_lvl3 dpl3 ON dpl3.tum_code = LEFT(ga.aid,6)
         // WHERE ga.type = 'Tumbon' AND CONCAT(LEFT(ga.aid,4),'0000') = '$ampur' 
         // ORDER BY ga.aid ASC";    
-    }
+    // }
 
     $rs = $db_r4->prepare($sql);
     $rs->execute();
@@ -75,6 +93,7 @@
         'type'      => 'FeatureCollection',
         'features'  => array()
     ); 
+    $count=0; 
     foreach($results as $row) {
 
         if(($row['RatePopulation'] != 0)){
@@ -119,7 +138,8 @@
         );
         // Add feature array to feature collection array
         array_push($geojson['features'], $feature);
+        $count++;
     }
-    echo json_encode($geojson);
+   echo json_encode($geojson);
 
 ?>

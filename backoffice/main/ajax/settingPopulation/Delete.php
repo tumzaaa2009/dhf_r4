@@ -8,12 +8,12 @@
     $year = $_POST["year"];
 
     $sql_lvl1 = "DELETE FROM dhf_population_lvl1 WHERE year = '$year'";
-    if($db_saraburi->exec($sql_lvl1) == "1"){
+    if($db_r4->exec($sql_lvl1) == "1"){
         $sql_lvl2 = "DELETE FROM dhf_population_lvl2 WHERE year = '$year'";
-        $db_saraburi->exec($sql_lvl2);
+        $db_r4->exec($sql_lvl2);
 
         $sql_lvl3 = "DELETE FROM dhf_population_lvl3 WHERE year = '$year'";
-        $db_saraburi->exec($sql_lvl3);
+        $db_r4->exec($sql_lvl3);
 
         $result = 1;
     } else {
