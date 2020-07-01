@@ -28,7 +28,7 @@ include('header.php')
 
         <div class="row">
           <div class="col-12">
-          <div align="center"><h5>แผนที่การเกิดโรคอัตราแสนประชากร เขตสุขภาพที่ 4 </h5></div>
+          <div align="center"><h5>แผนภูมิที่อยากจะแสดง </h5></div>
           
 
 

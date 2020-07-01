@@ -124,16 +124,32 @@ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
                             </div>
                         </div>
                     </div>
-                <div class="row">
-                    <div class="col-12 mt-2" style="width: 1000px;height: 1000px;">
-                    <div id="map" ></div>
+                <div class="row" >
+                    <div class="col" style="width: 1000px;height: 1000px;">
+                            <div id="map" ></div>
                     </div>
-               
-            </div>
-                    </div>
+                   
                 </div>
- </div>  
-                <!-- ./ Content -->
+        
+                  </div>
+                </div>
+    </div>  
+ <!-- ./ Content -->
+
+ <section id="summaryr4" class="container" style="margin-top:-15%">
+<hr>
+<div class="col mt-2" >
+
+                       <div class="row ">
+                         <div class="col-12">
+                            <div id="table-report4"></div>
+                        </div>
+                       </div>
+                    </div>
+
+
+
+ </section>
 
             </div>
                   <!-- Footer -->
@@ -262,15 +278,42 @@ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
                     hideDuration: 200
                 };
                 LoadMap(); 
+                map_get_table();
+});
+
+
+
             
-            });
-//  
+function map_get_table(){
+    let year = $("#year").val();
+                let date_start = $("#date_start").val();
+                let date_end = $("#date_end").val();
+                let id_506 = $("#id_506").val();
+                let scale_type = $("#scale_type").val();
+                let ampur = $("select[name='ampur[]']").map(function() { return $(this).val(); }).get();
+
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/viewMapMain/report_table.php",
+                   data: {year:year,date_start:date_start, date_end:date_end, year:year, id_506:id_506, scale_type:scale_type,ampur:ampur},
+                    success: function (result) {
+                        $("#table-report4").html(result);
+                        // $('#dataTable').DataTable({
+                        //     searching: true,
+                        //     paging: true,
+                        //     info: true,
+                        //     responsive: true,
+                        // } );
+                    }
+                });
+            }
+// start-map 
 var geojson = "";
             var markerall = new Array();
             var markercount = 0;
             var info = L.control();
             var mymap = L.map('map');
-            var legend = L.control({position: 'bottomright'});
+            var legend = L.control({position: 'bottomright',right:'15px'});
             
 function LoadMap(){
                 

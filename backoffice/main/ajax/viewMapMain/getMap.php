@@ -29,7 +29,7 @@
         }
     }
     if($ampur != ""){
-        $sql_ampur = "WHERE  dh_pro.Province_CODE IN ($ampur) ";
+        $sql_ampur = " dh_pro.Province_CODE IN ($ampur) ";
     }
 
 
@@ -54,6 +54,7 @@
         INNER JOIN dhf_province dh_pro ON dh_pro.Pro_CODE=g4.areacode
         INNER JOIN dhf_population_lvl2 AS dhflvl2 ON dhflvl2.amp_code=dh_pro.Province_CODE
         ".$sql_ampur."
+        Where dhflvl2.year=".$year."
         GROUP BY g4.areacode
         ORDER BY dh_pro.Province_CODE ASC";    
         

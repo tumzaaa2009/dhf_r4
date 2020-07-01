@@ -11,9 +11,9 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>ไข้เลือดออก เขตสุขภาพที่4</title>
-  <meta content="ไข้เลือดออกเขต4" name="descriptison">
-  <meta content="ไข้เลือดออกเขต4" name="keywords">
+  <title><?=$token->group_name?>เขตสุขภาพที่4</title>
+  <meta content="กลุ่มโรคเขตสุขภาพที่4" name="descriptison">
+  <meta content="กลุ่มโรคเขต4" name="keywords">
 
   <!-- Favicons -->
   <link href="img/kisspng-mosquito-control-household-insect-repellents-primo-5ba2f629ec4636.4883996115374065059678.png" rel="icon">
@@ -92,17 +92,17 @@
 
       <div class="row justify-content-center">
         <div class="col-xl-9 d-flex align-items-center">
-          <h1 class="logo mr-auto"><a href="index.html">Techie</a></h1>
+<a href="index.php" class=""><img class="img-fluid" width="100px" src="img/logo2.png" alt=""></a>
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html" class="logo mr-auto"><img src="../../assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
           <nav class="nav-menu d-none d-lg-block">
             <ul>
-              <li class="active"><a href="index.php">Home</a></li>
-              <li><a href="view_map_main.php">แสดงแผนที่อัตราแสน</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#portfolio">Portfolio</a></li>
-              <li><a href="index_patient.php" <?php if($now_page == "index_patient.php"){ echo "class='active'"; } ?>>จัดการผู้ป่วย</a></li>
+              <li class="active"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+              <li><a href="view_map_main.php"><i class="fa fa-map-signs" aria-hidden="true"></i> แสดงแผนที่อัตราแสน</a></li>
+              <!-- <li><a href="#services">Services</a></li>
+              <li><a href="#portfolio">Portfolio</a></li> -->
+              <li><a href="index_patient.php" <?php if($now_page == "index_patient.php"){ echo "class='active'"; } ?>><i class="fa fa-users" aria-hidden="true"></i> จัดการผู้ป่วย</a></li>
               <li class="drop-down"><a href=""><i class="fa fa-cog" aria-hidden="true"></i> จัดการระบบ</a>
                 <ul>
                   <li><a href="index_group.php">จัดการกลุ่มโรค</a></li>
@@ -121,7 +121,7 @@
                 </ul>
               </li>
     
-              <li class="drop-down"><a href=""><?php echo $token->dhf_fullname; ?></a>
+              <li class="drop-down"><a href=""><i class="fa fa-user" aria-hidden="true"></i> <?php echo $token->dhf_fullname; ?></a>
                 <ul>
                   <li><a href="logout.php"">ออกจากระบบ</a></li>
                   <!-- <li><a href="#">Drop Down 2</a></li>
@@ -152,9 +152,9 @@
     <div class="container-fluid" data-aos="fade-up">
       <div class="row justify-content-center">
         <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1><?=$token->group_name ?></h1>
-          <h2>We are team of talanted designers making websites with Bootstrap</h2>
-          <div><a href="#about" class="btn-get-started scrollto">Get Started</a></div>
+          <h1>เขตสุขภาพที่4</h1>
+          <h2><?=$token->group_name?></h2>
+          <div><a href="javascript:void(0);" class="btn-get-started scrollto" onclick="retweet_disease();">เปลี่ยนกลุ่มโรค</a></div>
         </div>
         <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
           <img src="img/kisspng-mosquito-control-household-insect-repellents-primo-5ba2f629ec4636.4883996115374065059678.png"  width="500"  class="img-fluid animated" alt="">
