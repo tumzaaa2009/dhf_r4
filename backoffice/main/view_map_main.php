@@ -298,12 +298,12 @@ function map_get_table(){
                    data: {year:year,date_start:date_start, date_end:date_end, year:year, id_506:id_506, scale_type:scale_type,ampur:ampur},
                     success: function (result) {
                         $("#table-report4").html(result);
-                        // $('#dataTable').DataTable({
-                        //     searching: true,
-                        //     paging: true,
-                        //     info: true,
-                        //     responsive: true,
-                        // } );
+                        $('#dataTable').DataTable({
+                            searching: true,
+                            paging: true,
+                            info: true,
+                            responsive: true,
+                        } );
                     }
                 });
             }
@@ -356,7 +356,7 @@ function LoadMap(){
     mymap.getPane('labels').style.pointerEvents = 'none';
 
    
-mymap.setView([14.65, 100.91667], 8);
+mymap.setView([ 14.778866120581371,100.77346801757812], 4);
      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidHVtemFhMjAwOSIsImEiOiJja2E3bDRyNnYwNDR6MnlvM2xmNXZzY2prIn0.VTjKIDTqhMnhWYI8LCD5iA', 
      {
                             maxZoom: 11,

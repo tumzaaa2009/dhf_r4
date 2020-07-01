@@ -36,10 +36,11 @@ include('header.php')
         </div>
 
       </div>
-    </section><!-- End About Section -->
+    </section>
+    <!-- End About Section -->
 
     <!-- ======= Counts Section ======= -->
-    <section id="counts" class="counts">
+    <!-- <section id="counts" class="counts">
       <div class="container">
 
         <div class="row counters">
@@ -67,10 +68,11 @@ include('header.php')
         </div>
 
       </div>
-    </section><!-- End Counts Section -->
+    </section> -->
+    <!-- End Counts Section -->
 
     <!-- ======= Services Section ======= -->
-    <section id="services" class="services section-bg">
+    <!-- <section id="services" class="services section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -160,10 +162,11 @@ include('header.php')
         </div>
 
       </div>
-    </section><!-- End Services Section -->
+    </section> -->
+    <!-- End Services Section -->
 
     <!-- ======= Features Section ======= -->
-    <section id="features" class="features">
+    <!-- <section id="features" class="features">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -200,10 +203,11 @@ include('header.php')
         </div>
 
       </div>
-    </section><!-- End Features Section -->
+    </section> -->
+    <!-- End Features Section -->
 
     <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials section-bg">
+    <!-- <section id="testimonials" class="testimonials section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -271,10 +275,11 @@ include('header.php')
         </div>
 
       </div>
-    </section><!-- End Testimonials Section -->
+    </section> -->
+    <!-- End Testimonials Section -->
 
     <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
+    <!-- <section id="portfolio" class="portfolio">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -424,10 +429,11 @@ include('header.php')
         </div>
 
       </div>
-    </section><!-- End Portfolio Section -->
+    </section> -->
+    <!-- End Portfolio Section -->
 
     <!-- ======= Pricing Section ======= -->
-    <section id="pricing" class="pricing section-bg">
+    <!-- <section id="pricing" class="pricing section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -509,10 +515,11 @@ include('header.php')
         </div>
 
       </div>
-    </section><!-- End Pricing Section -->
+    </section> -->
+    <!-- End Pricing Section -->
 
     <!-- ======= Frequently Asked Questions Section ======= -->
-    <section id="faq" class="faq">
+    <!-- <section id="faq" class="faq">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -571,10 +578,11 @@ include('header.php')
         </div>
 
       </div>
-    </section><!-- End Frequently Asked Questions Section -->
+    </section> -->
+    <!-- End Frequently Asked Questions Section -->
 
     <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact section-bg">
+    <!-- <section id="contact" class="contact section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -647,7 +655,8 @@ include('header.php')
         </div>
 
       </div>
-    </section><!-- End Contact Section -->
+    </section> -->
+    <!-- End Contact Section -->
 
   </main><!-- End #main -->
 <?=include('footer.php')?>

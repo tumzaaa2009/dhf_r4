@@ -20,7 +20,7 @@ $convert_date =  $year+543;
 
 
 
-         <div class="col-12" style="border:solid">
+         <div class="col-12 mt-2">
          <div><h5 align="center">สรุปภาพรวมอัตราแสนเขตสุขภาพที่ 4 ปี <?=$convert_date?></h5></div>
             <div class="table-responsive-sm">
                 <!-- Header Table-->
