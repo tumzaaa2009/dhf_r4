@@ -70,6 +70,12 @@
 							Login
 						</button>
 					</div>
+					<div class="container-login100-form-btn">
+				
+					<button   type="button" id="freelogin"  value="User" onclick="user_sigin()"  class="login100-form-btn btn-primary">
+							<h4 class="mt-2">เข้าสู่หน้าเว็บโรคระบาด</h4>
+						</button>
+					</div>
 
 					<div class="text-center p-t-12">
 						<!-- <span class="txt1">
@@ -171,8 +177,30 @@
                         } 
                     }
                 });
-            }
+			}
+	function user_sigin(){
+	 let freelogin =$("#freelogin").val();
+	 $.ajax({
+                type: "POST",
+                url: "authentication_userfree.php",
+                data: {freelogin:freelogin},
+                    dataType: "json",
+					success: function (response) 
+					{
+						if(response.result =='yes')
+						{
+								if (response.level=="1") 
+								{ 
+									window.location.assign("main/index.php");	
+								
+								}           
+                         } 
+                    }
+                });
+	}		
+
         </script>
+
 
 </body>
 </html>

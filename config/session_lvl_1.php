@@ -15,7 +15,7 @@
         $results = $r_check->fetchAll();
     }
 
-    if (empty($_SESSION['JWT_Dengue_Fever']) || $results[0]['count_check'] != 1) {
+    if (empty($_SESSION['JWT_Dengue_Fever']) ) {
         session_destroy();
         header("location: ../503.php");
     }

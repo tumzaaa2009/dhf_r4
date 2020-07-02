@@ -14,7 +14,13 @@ include('header.php')
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
+  <style>
  
+ #map { width: 100%;height: 75%;}
+ .mapboxgl-popup {
+ max-width: 400px;
+ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+ }</style>
 </head>
 
 <body>
@@ -23,20 +29,149 @@ include('header.php')
   <main id="main">
 
     <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
+          <!-- Content body -->
+          <div class="container">  
+            <div class="content-body ">
+                <!-- Content -->
+                <div class="content mt-5">
+                    <div class="page-header">
+                        <div>
+                            <h3>แผนที่แสดงการเกิดโรคอัตราแสน</h3>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.php">หน้าแรก</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        แผนที่แสดงการเกิดโรค
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div>
+                            <div class="btn bg-white">
+                                <span><i class="fas fa-viruses"></i> <?php echo ($token->group_name != "" ? $token->group_name : "กรุณาเลือกกลุ่มโรค"); ?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label for="year">ปี </label>
+                                                <select class="form-control" id="year" name="year" onchange="LoadMap();">
+                                                    <?php
+                                                        $months = array(1=>'มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม');
+                                                        $sql_year = "SELECT dcp1.* FROM dhf_population_lvl1 dcp1 ORDER BY dcp1.year DESC";
+                                                        $rs_year = $db_r4->prepare($sql_year);
+                                                        $rs_year->execute();
+                                                        $results_year = $rs_year->fetchAll();
+                                                    ?>
+                                                    <?php foreach($results_year as $row_year){ ?> 
+                                                        <option value="<?php echo $row_year['year'];?>" <?php if($row_year['year'] == date('Y')){ echo "selected"; } ?>><?php echo "ปี ".$row_year['year'] ;?></option> 
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label for="date_start">เดือนเริ่มต้น </label>
+                                                <select class="form-control" id="date_start" name="date_start" onchange="LoadMap();">
+                                                    <?php for ($i=1; $i <= 12 ; $i++) { ?>
+                                                        <option value="<?php echo $i;?>" <?php if($i == 1){ echo "selected"; } ?>><?php echo $months[$i] ;?></option> 
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label for="date_end">เดือนสิ้นสุด </label>
+                                                <select class="form-control" id="date_end" name="date_end" onchange="LoadMap();">
+                                                    <?php for ($i=1; $i <= 12 ; $i++) { ?>
+                                                        <option value="<?php echo $i;?>" <?php if($i == date("m")){ echo "selected"; } ?>><?php echo $months[$i] ;?></option> 
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label>โรค : 506</label>
+                                                <select class="form-control" id="id_506" name="id_506" onchange="LoadMap();">
+                                                    <?php
+                                                        $sql_code = "SELECT * FROM dhf_506 WHERE id_506 IN ($token->group_id_506)";
+                                                        $rs_code = $db_r4->prepare($sql_code);
+                                                        $rs_code->execute();
+                                                        $results_code = $rs_code->fetchAll();
+                                                    ?>
+                                                    <option value="<?php echo $token->group_id_506; ?>" selected>ทั้งหมด</option>
+                                                    <?php foreach($results_code as $row_code){ ?> 
+                                                        <option value="<?php echo $row_code['id_506'];?>"><?php echo $row_code['name_thai_506']." [".$row_code['id_506']."]";?></option> 
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label>อัตราป่วย</label>
+                                                <select class="form-control" id="scale_type" name="scale_type" onchange="LoadMap();">
+                                                    <option value="0">0 > 5 > 10 > 20</option> 
+                                                    <option value="1" selected>0 > 20 > 30 > 50</option> 
+                                                    <option value="2">0 > 50 > 100 > 150</option> 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="form-group">
+                                                <label>จังหวัด</label>
+                                                <?php 
+                                                 $select_provice = "SELECT * FROM dhf_province";
+                                                 $rs_code_provice = $db_r4->prepare($select_provice);
+                                                 $rs_code_provice->execute();
+                                                 $results_code_provice = $rs_code_provice->fetchAll();?>
+                            <select class="select2 form-control" name="ampur[]" id="ampur[]" multiple="multiple" onchange="LoadMap();" >                                             
+                        <?php  foreach($results_code_provice as $row_code_province){ ?>
+                                                     <option value='<?=$row_code_province['Province_CODE']?>'><?=$row_code_province['Province_NAME']?></option>
+                                                     
+                                                     <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>                    
 
-        <div class="row">
-          <div class="col-12">
-          <div align="center"><h5>แผนภูมิที่อยากจะแสดง </h5></div>
-          
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row" >
+                    <div class="col" style="width: 1000px;height: 1000px;">
+                            <div id="map" ></div>
+                    </div>
+                   
+                </div>
+        
+                  </div>
+                </div>
+    </div>  
+ <!-- ./ Content -->
+
+ <section id="summaryr4" class="container" style="margin-top:-15%">
+<hr>
+<div class="col mt-2" >
+
+                       <div class="row ">
+                         <div class="col-12">
+                            <div id="table-report4"></div>
+                        </div>
+                       </div>
+                    </div>
 
 
-         
-        </div>
 
-      </div>
-    </section>
+ </section>
     <!-- End About Section -->
 
     <!-- ======= Counts Section ======= -->
@@ -727,81 +862,194 @@ include('header.php')
         <script type="text/javascript" src="../../vendors/fusioncharts-suite-xt/integrations/jquery/js/jquery-fusioncharts.js"></script>
         <!-- Fusion Theme -->
         <script type="text/javascript" src="../../vendors/fusioncharts-suite-xt/js/themes/fusioncharts.theme.fusion.js"></script>
-
+        <!-- leaflet -->
+        <script src="../../vendors/leaflet/leaflet.js"></script>
+        <script src="../../vendors/leaflet/easy-button.js"></script>
+        <script src="../../vendors/leaflet/js/leaflet.extra-markers.min.js"></script> 
+          <!-- SELECT 2 -->
+          <script src="../../assets/lib/select2/select2.min.js" ></script>
 
         <script>
             $(document).ready(function () {
                 check_disease();
-                getChartMain01();
-                getChartMain02();
-            });
-            function getChartMain01(){
-                let btnChartMain = "01";
-                $.ajax({
-                    type: "POST",
-                    url: "ajax/viewIndex/GetChartMain.php",
-                    data: {btnChartMain:btnChartMain},
-                    dataType: "json",
-                    success: function (response) {
-                        const chartConfigs = {
-                            type: "bar2d",
-                            width: "100%",
-                            height: "400",
-                            dataFormat: "json",
-                            dataSource: {
-                                "chart": {
-                                    "caption": "จำนวนผู้ป่วยสะสม แยกรายกลุ่มอายุ",
-                                    //"subCaption": "In MMbbl = One Million barrels",
-                                    "xAxisName": "ช่วงอายุ",
-                                    "yAxisName": "จำนวนผู้ป่วย สะสม",
-                                    "slantLabel": "1",
-                                    "showValues": "1",
-                                    "labelDisplay": "rotate",
-                                    "labelFontSize": "12",
-                                    "exportEnabled": "1",
-                                    "theme": "fusion",
-                                },
-                                "data": response
-                            }
-                        }
+                $('.select2').select2({placeholder:'เลือกทั้งหมด'});
+//////////////////////////////////////////////////
+                LoadMap(); 
+                map_get_table();
+});
 
-                        $("#chart-container-01").insertFusionCharts(chartConfigs);
-                    }
-                });
-            }
-            function getChartMain02(){
-                let btnChartMain = "02";
+
+
+            
+function map_get_table(){
+    let year = $("#year").val();
+                let date_start = $("#date_start").val();
+                let date_end = $("#date_end").val();
+                let id_506 = $("#id_506").val();
+                let scale_type = $("#scale_type").val();
+                let ampur = $("select[name='ampur[]']").map(function() { return $(this).val(); }).get();
+
                 $.ajax({
                     type: "POST",
-                    url: "ajax/viewIndex/GetChartMain.php",
-                    data: {btnChartMain:btnChartMain},
-                    dataType: "json",
-                    success: function (response) {
-                        const chartConfigs = {
-                            type: "column2d",
-                            width: "100%",
-                            height: "400",
-                            dataFormat: "json",
-                            dataSource: {
-                                "chart": {
-                                    "caption": "จำนวนผู้ป่วยสะสม แยกรายอำเภอ",
-                                    //"subCaption": "In MMbbl = One Million barrels",
-                                    "xAxisName": "อำเภอ",
-                                    "yAxisName": "จำนวนผู้ป่วย สะสม",
-                                    "slantLabel": "1",
-                                    "showValues": "1",
-                                    "labelDisplay": "rotate",
-                                    "labelFontSize": "12",
-                                    "exportEnabled": "1",
-                                    "theme": "fusion",
-                                },
-                                "data": response
-                            }
-                        }
-                        $("#chart-container-02").insertFusionCharts(chartConfigs);
+                    url: "ajax/viewMapMain/report_table.php",
+                   data: {year:year,date_start:date_start, date_end:date_end, year:year, id_506:id_506, scale_type:scale_type,ampur:ampur},
+                    success: function (result) {
+                        $("#table-report4").html(result);
+                        $('#dataTable').DataTable({
+                            searching: true,
+                            paging: true,
+                            info: true,
+                            responsive: true,
+                        } );
                     }
                 });
             }
+// start-map 
+var geojson = "";
+            var markerall = new Array();
+            var markercount = 0;
+            var info = L.control();
+            var mymap = L.map('map');
+            var legend = L.control({position: 'bottomright',right:'15px'});
+            
+function LoadMap(){
+                
+                let year = $("#year").val();
+                let date_start = $("#date_start").val();
+                let date_end = $("#date_end").val();
+                let id_506 = $("#id_506").val();
+                let scale_type = $("#scale_type").val();
+                let ampur = $("select[name='ampur[]']").map(function() { return $(this).val(); }).get();
+
+                if(geojson != ""){
+                    if(geojson != ""){
+                        mymap.removeLayer(geojson);
+                    }
+                    if(geojson != ""){
+                        mymap.removeLayer(geojson);
+                    }
+                }
+                $.ajax({
+                type: "POST",
+                url: "ajax/viewMapMain/getMap.php",
+                data: {year:year,date_start:date_start, date_end:date_end, year:year, id_506:id_506, scale_type:scale_type,ampur:ampur},
+                dataType: "json",
+                    success: function (result) {
+        	// console.log( JSON.stringify(result, null, 2) );
+            if(geojson != ""){
+                    if(geojson != ""){
+                        mymap.removeLayer(geojson);
+                    }
+                    if(geojson != ""){
+                        mymap.removeLayer(geojson);
+                    }
+                }
+    mymap.createPane('labels');
+
+    // This pane is above markers but below popups
+    mymap.getPane('labels').style.zIndex = 650;
+
+    // Layers in this pane are non-interactive and do not obscure mouse/touch events
+    mymap.getPane('labels').style.pointerEvents = 'none';
+
+   
+mymap.setView([ 14.778866120581371,100.77346801757812], 4);
+     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidHVtemFhMjAwOSIsImEiOiJja2E3bDRyNnYwNDR6MnlvM2xmNXZzY2prIn0.VTjKIDTqhMnhWYI8LCD5iA', 
+     {
+                            maxZoom: 11,
+                            minZoom: 9,
+                            id: 'mapbox.streets',
+                            accessToken: 'pk.eyJ1IjoidHVtemFhMjAwOSIsImEiOiJja2E3bDRyNnYwNDR6MnlvM2xmNXZzY2prIn0.VTjKIDTqhMnhWYI8LCD5iA'
+                        }).addTo(mymap);
+
+  ///function geo
+   geojson = new L.GeoJSON(result, {
+                            style:style, // stylesheet location
+                            onEachFeature: onEachFeature,
+                        }).addTo(mymap);
+                        legend.addTo(mymap);
+                    
+                    }
+                });
+              }
+function onEachFeature(feature, layer) {
+
+// console.log("fuck",feature.properties.name);
+
+                        layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight,
+                });
+            }
+ function highlightFeature(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 4,
+                    color: '#666',
+                    dashArray: '',
+                    fillOpacity: 0.5
+                });
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                }
+                info.update(layer.feature.properties);
+            }
+            function resetHighlight(e) {
+                geojson.resetStyle(e.target);
+                info.update();
+            }
+            function style(feature) {
+                return {
+                    fillColor: feature.properties.color,
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.3
+                };
+            }
+              
+            info.onAdd = function (mymap) {
+                this._div = L.DomUtil.create('div', 'info-leafletjs'); // create a div with a class "info"
+                this.update();
+                return this._div;
+            };
+
+            info.update = function (props) {
+       
+                    this._div.innerHTML = (props ?  "<div class='card card-body'><h4 class='text-dark font-weight-bold'>" + props.name + "<br></h4>"+"<br>"
+                    +"จำนวนผู้ป่วย : <span class='text-dark font-weight-bold'>"+props.CountPatient+" คน </span><br>"
+                    +"จำนวนประชากรในจังหวัด:<span class='text-dark font-weight-bold'> "+props.Population+" คน </span><br>"
+                    +"คิดเป็น <span class='text-dark font-weight-bold'>"+props.RatePopulation+" ต่อแสนประชากร</span></div>"
+                    : 'เลื่อนเมาส์/Click บริเวณแผนที่');
+                 
+    
+            };
+            info.addTo(mymap);
+            legend.onAdd = function (mymap) {
+       
+                let Scale = [
+                    [0,5,10,20],
+                    [0,20,30,50],
+                    [0,50,100,150]
+                ];
+                let scale_type = $("#scale_type").val();
+         
+             text_legend = "<div class='card card-body'><h6><div class='mb-1 '><i class='fa fa-circle' aria-hidden='true' style='color: #fff'></i> อัตราป่วยต่อแสนประชากร : 0</div>"
+                +"<div class='mb-1'><i class='fa fa-circle' style='color: #28A745' aria-hidden='true'></i> อัตราป่วยต่อแสนประชากร : "+Scale[scale_type][0]+" - "+Scale[scale_type][1]+"</div>"
+                +"<div class='mb-1'><i class='fa fa-circle' aria-hidden='true' style='color: #ffff4d'></i> อัตราป่วยต่อแสนประชากร : "+Scale[scale_type][1]+" - "+Scale[scale_type][2]+"</div>"
+                +"<div class='mb-1'><i class='fa fa-circle' aria-hidden='true' style='color: #FF7C2C'></i> อัตราป่วยต่อแสนประชากร : "+Scale[scale_type][2]+" - "+Scale[scale_type][3]+"</div>"
+                +"<div class='mb-1'><i class='fa fa-circle' aria-hidden='true'style='color: #DC3545' ></i> อัตราป่วยต่อแสนประชากร : > "+Scale[scale_type][3]+"</div></h6></div>";
+
+                var div = L.DomUtil.create('div', 'info-lg legend-lg');
+                div.innerHTML = text_legend;
+                                
+                return div;
+            };
+
+
+
+   
         </script>
 </body>
 

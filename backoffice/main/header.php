@@ -98,10 +98,12 @@
 
           <nav class="nav-menu d-none d-lg-block">
             <ul>
-              <li class="active"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-              <li><a href="view_map_main.php"><i class="fa fa-map-signs" aria-hidden="true"></i> แสดงแผนที่อัตราแสน</a></li>
+              <!-- <li ><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li> -->
+              <li class="active"><a href="view_map_main.php"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
               <!-- <li><a href="#services">Services</a></li>
               <li><a href="#portfolio">Portfolio</a></li> -->
+              <?if($token->dhf_user=="User"){}else{?>
+             
               <li><a href="index_patient.php" <?php if($now_page == "index_patient.php"){ echo "class='active'"; } ?>><i class="fa fa-users" aria-hidden="true"></i> จัดการผู้ป่วย</a></li>
               <li class="drop-down"><a href=""><i class="fa fa-cog" aria-hidden="true"></i> จัดการระบบ</a>
                 <ul>
@@ -120,10 +122,10 @@
                   <!-- <li><a href="#">Drop Down 4</a></li> -->
                 </ul>
               </li>
-    
-              <li class="drop-down"><a href=""><i class="fa fa-user" aria-hidden="true"></i> <?php echo $token->dhf_fullname; ?></a>
+          <?} ?>
+              <li class="drop-down"><a href=""><i class="fa fa-user" aria-hidden="true"></i> <?php echo $token->dhf_user; ?></a>
                 <ul>
-                  <li><a href="logout.php"">ออกจากระบบ</a></li>
+                  <li><a href="logout.php"">ออกจากระบบ </a></li>
                   <!-- <li><a href="#">Drop Down 2</a></li>
                   <li><a href="#">Drop Down 3</a></li>
                   <li><a href="#">Drop Down 4</a></li> -->

@@ -29,7 +29,7 @@
         }
     }
     if($ampur != ""){
-        $sql_ampur = " dh_pro.Province_CODE IN ($ampur) ";
+        $sql_ampur = "And dh_pro.Province_CODE IN ($ampur) ";
     }
 
 
@@ -99,25 +99,25 @@
 
         if(($row['RatePopulation'] != 0)){
             if($row['RatePopulation'] > $Scale[$scale_type][0] && $row['RatePopulation'] < $Scale[$scale_type][1]){
-                $color = "#28A745";
+                $color = "#00ff3a";
                 $opacity = 0.7;
             }else{
                 if($row['RatePopulation'] >= $Scale[$scale_type][1] && $row['RatePopulation'] < $Scale[$scale_type][2]){
-                    $color = "#ffff4d";
+                    $color = "#ffff00";
                     $opacity = 0.7;
                 }else{
                     if($row['RatePopulation'] >= $Scale[$scale_type][2] && $row['RatePopulation'] < $Scale[$scale_type][3]){
-                        $color = "#FF7C2C";
+                        $color = "#f75e00";
                         $opacity = 0.7;
                     }else{
-                        $color = "#DC3545";
+                        $color = "#ff1400";
                         $opacity = 0.7;
                     }
                 }
             }
         }else{
             $color = "#fff";
-            $opacity = 0.7;
+            $opacity = 1.0;
         }
 
         $feature = array(
