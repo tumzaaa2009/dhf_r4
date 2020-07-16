@@ -105,7 +105,8 @@
               <?if($token->dhf_user=="User"){}else{?>
              
               <li><a href="index_patient.php" <?php if($now_page == "index_patient.php"){ echo "class='active'"; } ?>><i class="fa fa-users" aria-hidden="true"></i> จัดการผู้ป่วย</a></li>
-              <li class="drop-down"><a href=""><i class="fa fa-cog" aria-hidden="true"></i> จัดการระบบ</a>
+              <li class="drop-down">
+                <a href=""><i class="fa fa-cog" aria-hidden="true"></i> จัดการระบบ</a>
                 <ul>
                   <li><a href="index_group.php">จัดการกลุ่มโรค</a></li>
                   <!-- <li class="drop-down"><a href="#">Deep Drop Down</a>

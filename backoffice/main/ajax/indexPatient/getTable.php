@@ -23,41 +23,36 @@
     $results = $rs->fetchAll();
     $i = 1;
 ?>
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-5">
+     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover" id="dataTable" style="width:100%">
                 <thead class="bg-table-in-page">
                     <tr>
-                        <th class="text-center p-2">E1</th>
-                        <th class="text-center p-2">วันที่เริ่มป่วย</th>
-                        <th class="text-center p-2">โรค</th>
-                        <th class="text-center p-2">ชื่อโรค</th>
-                        <th class="text-center p-2">เชื้อชาติ</th>
-                        <th class="text-center p-2">เพศ</th>
-                        <th class="text-center p-2">จังหวัด</th>
-                        <th class="text-center p-2">ที่อยู่</th>
-                        <th class="text-center p-2">วันทีมา ร.พ.</th>
-                        <!--<th class="text-center p-2">Lab</th>-->
-                        <th class="text-center p-2">วันที่รับรายงาน</th>
-                        <th class="text-center p-2">วันที่เสียชีวิต</th>
-                        <th class="text-center p-2">รหัสสถานที่รักษา</th>
+                        <th class="text-center p-2">E0</th>
+                        <th class="text-center p-2">DISEASE</th>
+                        <th class="text-center p-2">NDIS</th>
+                        <th class="text-center p-2">วันที่ป่วย</th>
+                        <th class="text-center p-2">วันที่วินิจฉัย</th>
+                     
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($results as $row) { ?>
-                        <tr id="tr_<?php echo $row['E1']; ?>-<?php echo $row['DATESICK']; ?>">
-                            <td class="text-center p-2"><?php echo $row['E1']; ?></td>
-                            <td class="text-center p-2"><?php echo $row['DATESICK']; ?></td>
+                        <tr id="tr_<?php echo $row['E0']; ?>-<?php echo $row['DATESICK']; ?>">
+                            <td class="text-center p-2"><?php echo $row['E0']; ?></td>
+                            <!-- <td class="text-center p-2"><?php echo $row['E1']; ?></td> -->
                             <td class="text-center p-2"><?php echo $row['DISEASE']; ?></td>
                             <td class="text-center p-2"><?php echo $row['NDIS']; ?></td>
-                            <td class="text-center p-2"><?php echo $row['RACE']; ?></td>
-                            <td class="text-center p-2"><?php echo $row['SEX']; ?></td>
-                            <td class="text-center p-2"><?php echo $row['areaname']; ?></td>
-                            <td class="text-center p-2"><?php echo $row['ADDRCODE']; ?></td>
+                            <!-- <td class="text-left p-2"><?php echo $row['NAME']; ?></td> -->
+                            <td class="text-center p-2"><?php echo $row['DATESICK']; ?></td>
                             <td class="text-center p-2"><?php echo $row['DATEDEFINE']; ?></td>
-                            <td class="text-center p-2"><?php echo $row['DATEREACH']; ?></td>
-                            <td class="text-center p-2"><?php echo $row['DATEDEATH']; ?></td>
-                            <td class="text-center p-2"><?php echo $row['HSERV']; ?></td>
+                            <!-- <td class="text-left p-2"><?php echo ($row['AMP_NAME'] != "" ? "อ.".$row['AMP_NAME'] : "ไม่สามารถระบุได้"); ?></td> -->
+                            <!--<td class="text-center p-2"><i class="fas fa-vial"></i></td>-->
+                            <!-- <td class="text-center p-2"><a href="javascript:void(0);" onclick="LoadPatientFollow('<?php echo $row['E0']; ?>','<?php echo $row['DATESICK']; ?>')"><i class="fas fa-walking"></i></a></td> -->
+
+                            <!-- <td class="text-center p-2"><a href="javascript:void(0);" onclick="DetailPatient('<?php echo $row['E0']; ?>','<?php echo $row['DATESICK']; ?>')"><i class="fas fa-info-circle text-info"></a></i></td>
+                            <td class="text-center p-2"><a href="javascript:void(0);" onclick="EditPatient('<?php echo $row['E0']; ?>','<?php echo $row['DATESICK']; ?>')"><i class="fas fa-edit text-warning"></i></a></td>
+                            <td class="text-center p-2"><a href="javascript:void(0);" onclick="DeletePatient('<?php echo $row['E0']; ?>','<?php echo $row['DATESICK']; ?>')"><i class="fas fa-trash-alt text-danger"></i></a></td> -->
                         </tr>
                     <?php $i++;
                     } ?>

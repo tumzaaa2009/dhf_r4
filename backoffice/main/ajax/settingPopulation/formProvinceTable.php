@@ -9,16 +9,16 @@
     $AMP_CODE = $_POST['AMP_CODE'];
 
     $sql = "SELECT * FROM dhf_population_lvl3 WHERE year = '$year' AND amp_code = '$AMP_CODE'";
-    $rs = $db_saraburi->prepare($sql);
+    $rs = $db_r4->prepare($sql);
     $rs->execute();
     $cnt = $rs->rowCount();
     
     if ($cnt == 0) {
-        $sql_lvl3 = "SELECT tb.TUM_CODE AS tumbol_code, tb.TUM_NAME AS tumbol_name, '0' AS population 
+       echo $sql_lvl3 = "SELECT tb.TUM_CODE AS tumbol_code, tb.TUM_NAME AS tumbol_name, '0' AS population 
                 FROM dhf_tumbol tb
                 WHERE tb.AMP_CODE = '$AMP_CODE'
                 ORDER BY tb.TUM_CODE ASC";
-        $rs_lvl3 = $db_saraburi->prepare($sql_lvl3);
+        $rs_lvl3 = $db_r4->prepare($sql_lvl3);
         $rs_lvl3->execute();
         $results_lvl3 = $rs_lvl3->fetchAll();
     } else {
@@ -27,7 +27,7 @@
             LEFT JOIN dhf_population_lvl3 dpl3 ON tb.TUM_CODE = dpl3.tum_code
             WHERE dpl3.year = '$year' AND dpl3.amp_code = '$AMP_CODE'
             ORDER BY tb.TUM_CODE ASC";
-        $rs_lvl3 = $db_saraburi->prepare($sql_lvl3);
+        $rs_lvl3 = $db_r4->prepare($sql_lvl3);
         $rs_lvl3->execute();
         $results_lvl3 = $rs_lvl3->fetchAll();
     }

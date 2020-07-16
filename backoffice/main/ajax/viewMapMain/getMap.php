@@ -35,7 +35,7 @@
 
 
     // if($type_map == "1"){
-        $sql = "SELECT *
+    echo    $sql = "SELECT *
         ,(SELECT COUNT(patien.E1) FROM dhf_patient_r4 patien
         WHERE 
          patien.DATESICK BETWEEN '$date_start' AND '$date_end'

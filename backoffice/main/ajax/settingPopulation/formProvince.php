@@ -14,7 +14,7 @@
     if ($cnt == 0) {
         // echo "if";
 
-        $sql_lvl2 = "SELECT  da.Province_ORDER AS province_order,da.Province_CODE AS province_code , da.Province_NAME AS province_name
+        $sql_lvl2 = "SELECT  da.Province_ORDER AS province_order,da.PRO_CODE,da.Province_CODE AS province_code , da.Province_NAME AS province_name
         , '0' AS population FROM dhf_province da ";
         $rs_lvl2 = $db_r4->prepare($sql_lvl2);
         $rs_lvl2->execute();
@@ -22,9 +22,9 @@
     } else {
 // echo "else";
 
-        $sql_lvl2 = "SELECT  da.Province_CODE AS province_code , da.Province_NAME AS province_name, dpl2.population AS population 
+        $sql_lvl2 = "SELECT  da.Province_CODE AS province_code,da.PRO_CODE, da.Province_NAME AS province_name, dpl2.population AS population 
        FROM dhf_province da LEFT JOIN dhf_population_lvl2 dpl2 
-       ON da.Province_CODE = dpl2.amp_code
+       ON da.PRO_CODE = dpl2.amp_code
         WHERE dpl2.year = '".$year."' ORDER BY da.Province_CODE ASC";
         $rs_lvl2 = $db_r4->prepare($sql_lvl2);
         $rs_lvl2->execute();
@@ -58,7 +58,7 @@
                                 <!-- <td class="text-center p-2"><?php echo $row['province_code']; ?></td> -->
                                 <td class="text-center p-2"><?php echo $row['province_name']; ?></td>
                                 <td class="text-center p-2">
-                                    <input type="hidden" class="form-control" id="ampur_code" name="ampur_code[]" value="<?php echo $row['province_code']; ?>">
+                                    <input type="hidden" class="form-control" id="ampur_code" name="ampur_code[]" value="<?php echo $row['PRO_CODE']; ?>">
                                     <input type="number" class="form-control text-right" min="0" id="population" name="population[]" value="<?php echo $row['population']; ?>">
                                 </td>
                             </tr>

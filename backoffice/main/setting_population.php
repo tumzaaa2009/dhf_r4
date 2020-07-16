@@ -386,10 +386,11 @@
             function LoadTumForm(value){
                 let AMP_CODE = value.value;
                 let year = $(value).find(':selected').attr('data-year');
+                console.log(year);
                 if(AMP_CODE != 0){
                     $.ajax({
                     type: "POST",
-                    url: "ajax/settingPopulation/formTumTable.php",
+                    url: "ajax/settingPopulation/formProvinceTable.php",
                     data: {AMP_CODE:AMP_CODE, year:year},
                     dataType: "html",
                     success: function (result) {

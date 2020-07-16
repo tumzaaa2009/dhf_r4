@@ -22,7 +22,7 @@
                         <th class="text-center p-2">ปี</th>
                         <th class="text-center p-2">จำนวนประชากรทั้งปี</th>    
                         <th class="text-center p-2">เพิ่มประชาการรายจังหวัด</th>
-                        <!-- <th class="text-center p-2">เพิ่มประชากรตำบล</th> -->
+                        <th class="text-center p-2">เพิ่มประชากรรายอำเภอ</th>
                         <th class="text-center p-2">รายละเอียด</th>
                         <th class="text-center p-2">แก้ไข</th>
                         <th class="text-center p-2">ลบ</th>
@@ -34,7 +34,7 @@
                             <td class="text-center p-2"><?php echo $row['year']; ?></td>
                             <td class="text-center p-2"><?php echo $row['population']; ?></td>
                             <td class="text-center p-2"><a href="javascript:void(0);" onclick="ProvicelPopulation('<?php echo $row['year']; ?>')"><i class="fas fa-users text-info"></i></a></td>
-                            <!-- <td class="text-center p-2"><a href="javascript:void(0);" onclick="TUMPopulation('<?php echo $row['year']; ?>')"><i class="fas fa-users text-info"></i></a></td> -->
+                            <td class="text-center p-2"><a href="javascript:void(0);" onclick="TUMPopulation('<?php echo $row['year']; ?>')"><i class="fas fa-users text-info"></i></a></td>
                             <td class="text-center p-2"><a href="javascript:void(0);" onclick="DetailPopulation('<?php echo $row['year']; ?>')"><i class="fas fa-info-circle text-info"></i></a></td>
                             <td class="text-center p-2"><a href="javascript:void(0);" onclick="PopulationEdit('<?php echo $row['year']; ?>')"><i class="fas fa-edit text-warning"></i></a></td>
                             <td class="text-center p-2"><a href="javascript:void(0);" onclick="DeletePopulation('<?php echo $row['year']; ?>')"><i class="fas fa-trash-alt text-danger"></i></a></td>
